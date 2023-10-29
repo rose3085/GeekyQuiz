@@ -7,7 +7,11 @@ namespace GeekyQuiz.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         { }
-        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+           
+        }
         public DbSet<LoginModel> Logins {get; set;}
     }
 }
