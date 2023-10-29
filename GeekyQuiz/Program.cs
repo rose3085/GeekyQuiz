@@ -2,7 +2,8 @@ global using GeekyQuiz.Models;
 using GeekyQuiz.Services.LoginServices;
 using Microsoft.EntityFrameworkCore;
 using GeekyQuiz.Data;
-    
+using GeekyQuiz.Services.QuestionServices;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ILoginServices, LoginServices>();
+builder.Services.AddTransient<IQuestionServices, QuestionServices>();
 
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
