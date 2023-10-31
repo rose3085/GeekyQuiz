@@ -27,19 +27,18 @@ namespace GeekyQuiz.Services.QuestionServices
             await _context.SaveChangesAsync();
             return await _context.Questions.ToListAsync();
         }
-
         public async Task<List<QuestionModel>?> DeleteQuestion(int id)
         {
-            var result = _context.Questions.FindAsync(id);
-            if (result is null)
+            var results = await _context.Questions.FindAsync(id);
+            if (results is null)
             {
                 return null;
             }
-            _context.Questions.Remove(result);
+            _context.Questions.Remove(results);
             await _context.SaveChangesAsync();
             return await _context.Questions.ToListAsync();
         }
-
+       
         public async Task<List<QuestionModel>> GetAllQuestion()
         {
             return await _context.Questions.ToListAsync();
@@ -55,7 +54,7 @@ namespace GeekyQuiz.Services.QuestionServices
             return result;
         }
 
-        private async Task<List<QuestionModel>> UpdateQuestion(int id, QuestionModel request)
+        public async Task<List<QuestionModel>?> UpdateQuestion(int id, QuestionModel request)
         {
             var result = await _context.Questions.FindAsync(id);
             if (result is null)
@@ -66,5 +65,7 @@ namespace GeekyQuiz.Services.QuestionServices
             await _context.SaveChangesAsync();
             return await _context.Questions.ToListAsync();
         }
+
+      
     }
 }
