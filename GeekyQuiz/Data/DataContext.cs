@@ -10,8 +10,10 @@ namespace GeekyQuiz.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-           
+
         }
-        public DbSet<LoginModel> Logins {get; set;}
+        public DbSet<LoginModel> Logins { get; set; }
+        public DbSet<QuestionModel> Questions { get; set; }
+
     }
 }

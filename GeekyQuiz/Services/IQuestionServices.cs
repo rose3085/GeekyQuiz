@@ -2,10 +2,10 @@
 {
     public interface IQuestionServices
     {
-        List<QuestionModel> AddQuestion(QuestionModel question);
-        List<QuestionModel> DeleteQuestion(int id);
-        List<QuestionModel> GetAllQuestion();
-        QuestionModel GetSingleQuestin(int id);
-        List<QuestionModel> UpdateQuestion(int id, QuestionModel request);
+        Task<List<QuestionModel>> AddQuestion(QuestionModel question);
+        Task<List<QuestionModel>?> DeleteQuestion(int id);
+        Task<List<QuestionModel>> GetAllQuestion();
+        Task<QuestionModel?> GetSingleQuestion(int id);
+        Task<List<QuestionModel>?> UpdateQuestion(int id, QuestionModel request);
     }
 }

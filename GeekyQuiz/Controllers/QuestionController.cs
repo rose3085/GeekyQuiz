@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Reflection.Metadata.Ecma335;
 
 namespace GeekyQuiz.Controllers
 {
@@ -9,12 +10,50 @@ namespace GeekyQuiz.Controllers
     [ApiController]
     public class QuestionController : ControllerBase
     {
-        private readonly IQuestionServices questionServices;
+        private readonly IQuestionServices _questionServices;
         public QuestionController(IQuestionServices questionServices)
         {
-            this.questionServices = questionServices;   
+            _questionServices = questionServices;
         }
         [HttpGet]
-        public async Task<ActionResult<List<QuestionModel>>
+        public async Task<ActionResult<List<QuestionModel>>> GetAllQuestion()
+        {
+            return await _questionServices.GetAllQuestion();
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<QuestionModel>>> GetSingleQuestion(int id)
+        {
+            var result = await _questionServices.GetSingleQuestion(id);
+            if (result is null)
+            {
+                return NotFound("Sorry, but this user doesn't exist.");
+            }
+            return Ok(result);
+        }
+        public async Task<ActionResult<List<LoginModel>>> AddQuestion(QuestionModel question)
+        {
+            var result = await _questionServices.AddQuestion(question);
+            return Ok(result);
+        }
+        [HttpPut("{id}")]
+        public async Task<ActionResult<List<LoginModel>>> UpdateQuestion(int id, QuestionModel request)
+        {
+            var result = await _questionServices.UpdateQuestion(id, request);
+            if (result is null)
+            {
+                return NotFound("Sorry, but this user doesn't exist.");
+            }
+            return Ok(result);
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<LoginModel>>> DeleteQuestion(int id)
+        {
+            var result = await _questionServices.DeleteQuestion(id);
+            if (result is null)
+            {
+                return NotFound("Sorry, but this user doesn't exist.");
+            }
+            return Ok(result);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿namespace GeekyQuiz.Services.QuestionServices
+﻿
+namespace GeekyQuiz.Services.QuestionServices
 {
     public class QuestionServices : IQuestionServices
     {
@@ -9,37 +10,44 @@
                 QuestionId=1,
                 Question = "What does IP stands for?"
             },
-            new QuestionModel 
+            new QuestionModel
             {
                 QuestionId = 2,
                 Question = "Which one of the following is not Http Protocol?"
             }
         };
-        public List<QuestionModel> AddQuestion(QuestionModel question)
+        private readonly DataContext _context;
+        public QuestionServices(DataContext context)
         {
-            questions.Add(question);
-            return questions;
+            _context = context;
+        }
+        public async Task<List<QuestionModel>> AddQuestion(QuestionModel question)
+        {
+            _context.Questions.Add(question);
+            await _context.SaveChangesAsync();
+            return await _context.Questions.ToListAsync();
         }
 
-        public List<QuestionModel> DeleteQuestion(int id)
+        public async Task<List<QuestionModel>?> DeleteQuestion(int id)
         {
-            var result = questions.Find(x => x.QuestionId == id);
+            var result = _context.Questions.FindAsync(id);
             if (result is null)
             {
                 return null;
             }
-            questions.Remove(result);
-            return questions;
+            _context.Questions.Remove(result);
+            await _context.SaveChangesAsync();
+            return await _context.Questions.ToListAsync();
         }
 
-        public List<QuestionModel> GetAllQuestion()
+        public async Task<List<QuestionModel>> GetAllQuestion()
         {
-            return questions;
+            return await _context.Questions.ToListAsync();
         }
 
-        public QuestionModel GetSingleQuestin(int id)
+        public async Task<QuestionModel?> GetSingleQuestion(int id)
         {
-            var result = questions.Find(x => x.QuestionId == id);
+            var result = await _context.Questions.FindAsync(id);
             if (result is null)
             {
                 return null;
@@ -47,15 +55,16 @@
             return result;
         }
 
-        public List<QuestionModel> UpdateQuestion(int id, QuestionModel request)
+        private async Task<List<QuestionModel>> UpdateQuestion(int id, QuestionModel request)
         {
-            var result = questions.Find(x => x.QuestionId == id);
+            var result = await _context.Questions.FindAsync(id);
             if (result is null)
             {
                 return null;
             }
             result.Question = request.Question;
-            return questions;
+            await _context.SaveChangesAsync();
+            return await _context.Questions.ToListAsync();
         }
     }
 }

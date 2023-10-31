@@ -2,10 +2,10 @@
 {
     public interface ILoginServices
     {
-        List<LoginModel> GetAllUser();
-        LoginModel GetSingleUser(int id);
-        List<LoginModel> AddUser(LoginModel user);
-        List<LoginModel> UpdateUser(int id, LoginModel request);
-        List<LoginModel> DeleteUser(int id);
+        Task<List<LoginModel>> GetAllUser();
+        Task<LoginModel?> GetSingleUser(int id);
+        Task<List<LoginModel>> AddUser(LoginModel user);
+        Task<List<LoginModel>?> UpdateUser(int id, LoginModel request);
+        Task<List<LoginModel>?> DeleteUser(int id);
     }
 }

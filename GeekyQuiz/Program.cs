@@ -1,8 +1,8 @@
 global using GeekyQuiz.Models;
-using GeekyQuiz.Services.LoginServices;
-using Microsoft.EntityFrameworkCore;
-using GeekyQuiz.Data;
-using GeekyQuiz.Services.QuestionServices;
+global using GeekyQuiz.Services.LoginServices;
+global using Microsoft.EntityFrameworkCore;
+global using GeekyQuiz.Data;
+global using GeekyQuiz.Services.QuestionServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
