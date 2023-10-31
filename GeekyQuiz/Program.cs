@@ -4,8 +4,8 @@ global using Microsoft.EntityFrameworkCore;
 global using GeekyQuiz.Data;
 global using GeekyQuiz.Services.QuestionServices;
 //global using GeekyQuiz.Services.UserAnswerServices;
-using GeekyQuiz.Services.UserAnswerServices;
-using GeekyQuiz.Services.ChoiceServices;
+global using GeekyQuiz.Services.UserAnswerServices;
+global using GeekyQuiz.Services.ChoiceServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +20,7 @@ builder.Services.AddTransient<IQuestionServices, QuestionServices>();
 builder.Services.AddTransient<IUserAnswerServices, UserAnswerServices>();
 builder.Services.AddTransient<IChoiceServices, ChoiceServices>();
 
-builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<DataContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

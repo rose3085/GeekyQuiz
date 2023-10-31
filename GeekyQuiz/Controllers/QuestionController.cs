@@ -30,6 +30,7 @@ namespace GeekyQuiz.Controllers
             }
             return Ok(result);
         }
+        [HttpPost]
         public async Task<ActionResult<List<LoginModel>>> AddQuestion(QuestionModel question)
         {
             var result = await _questionServices.AddQuestion(question);
