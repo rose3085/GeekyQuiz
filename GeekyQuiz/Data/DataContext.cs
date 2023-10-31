@@ -14,6 +14,8 @@ namespace GeekyQuiz.Data
         }
         public DbSet<LoginModel> Logins { get; set; }
         public DbSet<QuestionModel> Questions { get; set; }
+        public DbSet<UserAnswerModel> Answers { get; set; }
+        public DbSet<ChoiceModel> Choices { get; set; }
 
     }
 }

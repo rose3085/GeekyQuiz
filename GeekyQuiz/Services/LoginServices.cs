@@ -6,7 +6,7 @@
         {
             new LoginModel
             {
-                Id = 1,
+                UserId = 1,
                 UserName= "Rabina",
                 Email = "rabina@gmail.com",
                 PhoneNumber = 98009383827,
@@ -14,7 +14,7 @@
             },
             new LoginModel
             {
-                Id = 1,
+                UserId = 1,
                 UserName= "Rose",
                 Email = "rose@gmail.com",
                 PhoneNumber = 9883938937,

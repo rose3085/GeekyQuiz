@@ -3,6 +3,9 @@ global using GeekyQuiz.Services.LoginServices;
 global using Microsoft.EntityFrameworkCore;
 global using GeekyQuiz.Data;
 global using GeekyQuiz.Services.QuestionServices;
+//global using GeekyQuiz.Services.UserAnswerServices;
+using GeekyQuiz.Services.UserAnswerServices;
+using GeekyQuiz.Services.ChoiceServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ILoginServices, LoginServices>();
 builder.Services.AddTransient<IQuestionServices, QuestionServices>();
+builder.Services.AddTransient<IUserAnswerServices, UserAnswerServices>();
+builder.Services.AddTransient<IChoiceServices, ChoiceServices>();
 
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();

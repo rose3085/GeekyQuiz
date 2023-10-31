@@ -4,6 +4,7 @@ using GeekyQuiz.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekyQuiz.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231031093312_SecondMigration")]
+    partial class SecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,43 +24,6 @@ namespace GeekyQuiz.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("GeekyQuiz.Models.ChoiceModel", b =>
-                {
-                    b.Property<int>("ChoiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChoiceId"));
-
-                    b.Property<string>("ChoiceA")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChoiceB")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChoiceC")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChoiceD")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("QuestionId1")
-                        .HasColumnType("int");
-
-                    b.HasKey("ChoiceId");
-
-                    b.HasIndex("QuestionId1");
-
-                    b.ToTable("Choices");
-                });
 
             modelBuilder.Entity("GeekyQuiz.Models.LoginModel", b =>
                 {
@@ -112,8 +78,8 @@ namespace GeekyQuiz.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnswerId"));
 
-                    b.Property<int?>("IsCorrectChoiceId")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("bit");
 
                     b.Property<int>("PlayId")
                         .HasColumnType("int");
@@ -127,33 +93,16 @@ namespace GeekyQuiz.Migrations
 
                     b.HasKey("AnswerId");
 
-                    b.HasIndex("IsCorrectChoiceId");
-
                     b.HasIndex("QuestionId1");
 
                     b.ToTable("Answers");
                 });
 
-            modelBuilder.Entity("GeekyQuiz.Models.ChoiceModel", b =>
-                {
-                    b.HasOne("GeekyQuiz.Models.QuestionModel", "QuestionId")
-                        .WithMany()
-                        .HasForeignKey("QuestionId1");
-
-                    b.Navigation("QuestionId");
-                });
-
             modelBuilder.Entity("GeekyQuiz.Models.UserAnswerModel", b =>
                 {
-                    b.HasOne("GeekyQuiz.Models.ChoiceModel", "IsCorrect")
-                        .WithMany()
-                        .HasForeignKey("IsCorrectChoiceId");
-
                     b.HasOne("GeekyQuiz.Models.QuestionModel", "QuestionId")
                         .WithMany()
                         .HasForeignKey("QuestionId1");
-
-                    b.Navigation("IsCorrect");
 
                     b.Navigation("QuestionId");
                 });

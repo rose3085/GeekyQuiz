@@ -14,7 +14,7 @@ namespace GeekyQuiz.Migrations
                 name: "Logins",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -23,7 +23,7 @@ namespace GeekyQuiz.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Logins", x => x.Id);
+                    table.PrimaryKey("PK_Logins", x => x.UserId);
                 });
         }
 
