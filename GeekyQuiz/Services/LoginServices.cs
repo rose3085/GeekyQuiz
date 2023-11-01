@@ -1,14 +1,7 @@
-﻿using GeekyQuiz.Data;
-
-namespace GeekyQuiz.Services.LoginServices
+﻿namespace GeekyQuiz.Services.LoginServices
 {
     public class LoginServices : ILoginServices
     {
-        public DataContext _context;
-        public LoginServices(DataContext context)
-        {
-            _context = context;
-        }
         public static List<LoginModel> participant = new List<LoginModel>
         {
             new LoginModel
@@ -19,6 +12,7 @@ namespace GeekyQuiz.Services.LoginServices
                 PhoneNumber = 98009383827,
                 Password="fdhddbvbhd"
             },
+
             new LoginModel
             {
                 UserId = 1,
@@ -28,32 +22,40 @@ namespace GeekyQuiz.Services.LoginServices
                 Password="fssdddcsev"
             }
 };
-        public List<LoginModel> AddUser(LoginModel user)
+        private readonly DataContext _context;
+        public LoginServices(DataContext context)
         {
-            participant.Add(user);
-            return participant;
+            _context = context;
+        }
+        public async Task<List<LoginModel>> AddUser(LoginModel user)
+        {
+            _context.Logins.Add(user);
+            await _context.SaveChangesAsync();
+            return await _context.Logins.ToListAsync();
         }
 
-        public List<LoginModel> DeleteUser(int id)
+        public async Task<List<LoginModel>?> DeleteUser(int id)
         {
-            var user = participant.Find(x => x.UserId == id);
-            if (user is null)
+            var users = await _context.Logins.FindAsync(id);
+            if (users is null)
             {
                 return null;
             }
-            participant.Remove(user);
-            return participant;
+            _context.Logins.Remove(users);
+            await _context.SaveChangesAsync();
+            return await _context.Logins.ToListAsync();
         }
 
 
-        public List<LoginModel> GetAllUser()
+        public async Task<List<LoginModel>> GetAllUser()
         {
-            return participant;
+            var users = await _context.Logins.ToListAsync();
+            return users;
         }
 
-        public LoginModel GetSingleUser(int id)
+        public async Task<LoginModel?> GetSingleUser(int id)
         {
-            var user = participant.Find(x => x.UserId == id);
+            var user = await _context.Logins.FindAsync(id);
             if (user is null)
             {
                 return null;
@@ -61,9 +63,9 @@ namespace GeekyQuiz.Services.LoginServices
             return user;
         }
 
-        public List<LoginModel> UpdateUser(int id, LoginModel request)
+        public async Task<List<LoginModel>?> UpdateUser(int id, LoginModel request)
         {
-            var user = participant.Find(x => x.UserId == id);
+            var user = await _context.Logins.FindAsync(id);
             if (user is null)
             {
                 return null;
@@ -72,7 +74,14 @@ namespace GeekyQuiz.Services.LoginServices
             user.Email = request.Email;
             user.PhoneNumber = request.PhoneNumber;
             user.Password = request.Password;
-            return participant;
+
+            await _context.SaveChangesAsync();
+            return await _context.Logins.ToListAsync();
+        }
+
+        Task<List<LoginModel>> ILoginServices.GetSingleUser(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

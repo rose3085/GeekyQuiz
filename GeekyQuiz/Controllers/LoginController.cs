@@ -21,12 +21,12 @@ namespace GeekyQuiz.Controllers
             // return Ok(result);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<LoginModel>>> GetSingleUser(int id)
+        public async Task<ActionResult<List<LoginModel>>?> GetSingleUser(int id)
         {
             var result = await _loginServices.GetSingleUser(id);
             if (result is null)
             {
-                return NotFound("Sorry, but this user doesn't exist.");
+                return null;
             }
             return Ok(result);
         }
@@ -37,22 +37,22 @@ namespace GeekyQuiz.Controllers
             return Ok(result);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<LoginModel>>> UpdateUser(int id, LoginModel request)
+        public async Task<ActionResult<List<LoginModel>>?> UpdateUser(int id, LoginModel request)
         {
             var result = await _loginServices.UpdateUser(id, request);
             if (result is null)
             {
-                return NotFound("Sorry, but this user doesn't exist.");
+                return null;
             }
             return Ok(result);
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<LoginModel>>> DeleteUser(int id)
+        public async Task<ActionResult<List<LoginModel>>?> DeleteUser(int id)
         {
             var result = await _loginServices.DeleteUser(id);
             if (result is null)
             {
-                return NotFound("Sorry, but this user doesn't exist.");
+                return null;
             }
             return Ok(result);
         }

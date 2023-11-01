@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 namespace GeekyQuiz.Models
 {
     public class ResultModel
@@ -6,7 +7,7 @@ namespace GeekyQuiz.Models
         [Key]
         public int ScoreId { get; set; }
 
-        public int PlayId { get; set; }
+        public PlayedModel PlayedModel { get; set; }
 
         public int Score { get; set; }
 
