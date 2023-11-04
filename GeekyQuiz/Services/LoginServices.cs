@@ -5,6 +5,8 @@
 
 
 
+using Microsoft.AspNetCore.Mvc;
+
 namespace GeekyQuiz.Services.LoginServices
 {
     public class LoginServices : ILoginServices
@@ -54,17 +56,7 @@ namespace GeekyQuiz.Services.LoginServices
             
             return await _context.Logins.ToListAsync();
         }
-        public async Task<List<LoginModel>?> Login(UserRegisterModel request)
-        {
-           // var result = await _context.Logins.FindAsync(request.UserName);
-            if (user.UserName == request.UserName)
-            
-            await _context.SaveChangesAsync();
-            return await _context.Logins.ToListAsync();
-            
-        }
-        
-
+       
         public async Task<List<LoginModel>?> DeleteUser(int id)
         {
             var users = await _context.Logins.FindAsync(id);
@@ -111,5 +103,8 @@ namespace GeekyQuiz.Services.LoginServices
             await _context.SaveChangesAsync();
             return await _context.Logins.ToListAsync();
         }
+        
+
+        
     }
 }

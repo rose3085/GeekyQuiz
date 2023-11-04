@@ -40,13 +40,6 @@ namespace GeekyQuiz.Controllers
             }
             return Ok(result);
         }
-       [HttpPost("login")]
-        public async Task<ActionResult<List<LoginModel>>> Login(UserRegisterModel request)
-        {
-            var result =await _loginServices.Login(request);
-            return Ok(result);
-        }
-       
         [HttpPut("{id}")]
         public async Task<ActionResult<List<LoginModel>>?> UpdateUser(int id, LoginModel request)
         {
