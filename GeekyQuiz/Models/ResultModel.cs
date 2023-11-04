@@ -7,7 +7,7 @@ namespace GeekyQuiz.Models
         [Key]
         public int ScoreId { get; set; }
 
-        public PlayedModel PlayedModel { get; set; }
+        public PlayedModel PlayId { get; set; }
 
         public int Score { get; set; }
 

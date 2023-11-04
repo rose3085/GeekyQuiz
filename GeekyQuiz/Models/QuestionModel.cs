@@ -8,6 +8,7 @@ namespace GeekyQuiz.Models
 
         public string Question { get; set; } = string.Empty;
 
+
         public static implicit operator QuestionModel(int v)
         {
             throw new NotImplementedException();

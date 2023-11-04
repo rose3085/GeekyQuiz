@@ -4,7 +4,7 @@
 
 namespace GeekyQuiz.Migrations
 {
-    public partial class secondMigration : Migration
+    public partial class secondCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

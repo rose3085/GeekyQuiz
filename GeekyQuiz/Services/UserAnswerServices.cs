@@ -1,18 +1,10 @@
-﻿namespace GeekyQuiz.Services.UserAnswerServices
+﻿ using Microsoft.AspNetCore.Mvc;
+
+namespace GeekyQuiz.Services.UserAnswerServices
 {
     public class UserAnswerServices : IUserAnswerServices
     {
-        public static List<UserAnswerModel> AnswerList = new List<UserAnswerModel>
-        {
-            new UserAnswerModel
-            {
-               AnswerId = 1,
-               PlayId=1,
-               QuestionId = 1,
-               UserAnswer = "A",
-               IsCorrect = true
-            }
-        };
+        
         private readonly DataContext _context;
         public UserAnswerServices(DataContext context)
         {
@@ -70,6 +62,11 @@
             _context.Answers.Update(results);
             await _context.SaveChangesAsync();
             return await _context.Answers.ToListAsync();
+        }
+
+        Task<ActionResult<List<UserAnswerModel>>> IUserAnswerServices.GetAllAnswer()
+        {
+            throw new NotImplementedException();
         }
     }
 }

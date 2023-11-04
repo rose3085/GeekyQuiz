@@ -20,6 +20,7 @@ namespace GeekyQuiz.Controllers
         {
             return await _questionServices.GetAllQuestion();
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<List<QuestionModel>>?> GetSingleQuestion(int id)
         {

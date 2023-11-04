@@ -7,7 +7,7 @@ namespace GeekyQuiz.Models
         [Key]
         public int PlayId { get; set; }
 
-        public LoginModel LoginModel { get; set; }
+        public LoginModel UserId { get; set; }
 
         public DateTime Time { get; set; }
     }

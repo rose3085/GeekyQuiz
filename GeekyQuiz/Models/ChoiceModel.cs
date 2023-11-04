@@ -11,11 +11,11 @@ namespace GeekyQuiz.Models
         public string ChoiceB { get; set; } = string.Empty;
         public string ChoiceC { get; set; } = string.Empty;
         public string ChoiceD { get; set; } = string.Empty;
-        public bool IsCorrect { get; set; }
+        public char CorrectOption { get; set; }
 
-        public static implicit operator ChoiceModel(bool v)
+        public static implicit operator ChoiceModel(char  v)
         {
             throw new NotImplementedException();
-        }
+        }   
     }
 }

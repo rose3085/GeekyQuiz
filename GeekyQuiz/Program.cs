@@ -6,6 +6,8 @@ global using GeekyQuiz.Services.QuestionServices;
 //global using GeekyQuiz.Services.UserAnswerServices;
 global using GeekyQuiz.Services.UserAnswerServices;
 global using GeekyQuiz.Services.ChoiceServices;
+using GeekyQuiz.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,12 +15,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddDbContext<DataContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ILoginServices, LoginServices>();
 builder.Services.AddTransient<IQuestionServices, QuestionServices>();
 builder.Services.AddTransient<IUserAnswerServices, UserAnswerServices>();
 builder.Services.AddTransient<IChoiceServices, ChoiceServices>();
+builder.Services.AddTransient<IResultServices, ResultServices>();
 
 builder.Services.AddDbContext<DataContext>();
 var app = builder.Build();

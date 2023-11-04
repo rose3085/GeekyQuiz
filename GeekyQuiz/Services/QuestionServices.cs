@@ -14,12 +14,13 @@
                 QuestionId = 2,
                 Question = "Which one of the following is not Http Protocol?"
             }
-        };
+        };  
         private readonly DataContext _context;
         public QuestionServices(DataContext context)
         {
             _context = context;
         }
+
         public async Task<List<QuestionModel>> AddQuestion(QuestionModel question)
         {
             _context.Questions.Add(question);
@@ -65,6 +66,16 @@
             return await _context.Questions.ToListAsync();
         }
 
+           async Task<List<QuestionModel>> IQuestionServices.GetRandomQuestions(int numberOfQuestions)
+           {
+               var randomQuestions = _context.Questions
+                   .OrderBy(q => Guid.NewGuid()) // Shuffling the questions
+                   .Take(numberOfQuestions)
+                   .ToList();
 
+               return randomQuestions;
+
+           }
+        
     }
 }

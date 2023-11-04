@@ -1,20 +1,9 @@
-﻿namespace GeekyQuiz.Services.ChoiceServices
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace GeekyQuiz.Services.ChoiceServices
 {
     public class ChoiceServices : IChoiceServices
     {
-        public static List<ChoiceModel> choice = new List<ChoiceModel>
-        {
-            new ChoiceModel
-            {
-                ChoiceId = 1,
-                QuestionId = 1,
-                ChoiceA = "POST",
-                ChoiceB = "UPDATE ",
-                ChoiceC = "GET",
-                ChoiceD = "DELETE",
-                IsCorrect = true,
-            }
-        };
         private readonly DataContext _context;
         public ChoiceServices(DataContext context)
         {
@@ -46,6 +35,11 @@
             return users;
         }
 
+        public Task<List<ChoiceModel>> GetChoicesForQuestion(int questionId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ChoiceModel?> GetSingleChoice(int id)
         {
             var user = await _context.Choices.FindAsync(id);
@@ -68,10 +62,15 @@
             user.ChoiceB = request.ChoiceB;
             user.ChoiceC = request.ChoiceC;
             user.ChoiceD = request.ChoiceD;
-            user.IsCorrect = request.IsCorrect;
+            user.CorrectOption = request.CorrectOption;
 
             await _context.SaveChangesAsync();
             return await _context.Choices.ToListAsync();
+        }
+
+        Task<ActionResult<List<ChoiceModel>>> IChoiceServices.GetAllChoice()
+        {
+            throw new NotImplementedException();
         }
     }
 }

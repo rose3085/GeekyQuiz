@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace GeekyQuiz.Migrations
 {
-    public partial class firstMigration : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,6 +39,26 @@ namespace GeekyQuiz.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PlayedModel",
+                columns: table => new
+                {
+                    PlayId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId1 = table.Column<int>(type: "int", nullable: false),
+                    Time = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlayedModel", x => x.PlayId);
+                    table.ForeignKey(
+                        name: "FK_PlayedModel_Logins_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "Logins",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Choices",
                 columns: table => new
                 {
@@ -48,7 +69,7 @@ namespace GeekyQuiz.Migrations
                     ChoiceB = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ChoiceC = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ChoiceD = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsCorrect = table.Column<bool>(type: "bit", nullable: false)
+                    CorrectOption = table.Column<string>(type: "nvarchar(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,19 +88,19 @@ namespace GeekyQuiz.Migrations
                 {
                     AnswerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PlayId = table.Column<int>(type: "int", nullable: false),
+                    PlayId1 = table.Column<int>(type: "int", nullable: false),
                     QuestionId1 = table.Column<int>(type: "int", nullable: false),
                     UserAnswer = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsCorrectChoiceId = table.Column<int>(type: "int", nullable: false)
+                    IsCorrect = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Answers", x => x.AnswerId);
                     table.ForeignKey(
-                        name: "FK_Answers_Choices_IsCorrectChoiceId",
-                        column: x => x.IsCorrectChoiceId,
-                        principalTable: "Choices",
-                        principalColumn: "ChoiceId",
+                        name: "FK_Answers_PlayedModel_PlayId1",
+                        column: x => x.PlayId1,
+                        principalTable: "PlayedModel",
+                        principalColumn: "PlayId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Answers_Questions_QuestionId1",
@@ -90,9 +111,9 @@ namespace GeekyQuiz.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answers_IsCorrectChoiceId",
+                name: "IX_Answers_PlayId1",
                 table: "Answers",
-                column: "IsCorrectChoiceId");
+                column: "PlayId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Answers_QuestionId1",
@@ -103,6 +124,11 @@ namespace GeekyQuiz.Migrations
                 name: "IX_Choices_QuestionId1",
                 table: "Choices",
                 column: "QuestionId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayedModel_UserId1",
+                table: "PlayedModel",
+                column: "UserId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -111,13 +137,16 @@ namespace GeekyQuiz.Migrations
                 name: "Answers");
 
             migrationBuilder.DropTable(
-                name: "Logins");
-
-            migrationBuilder.DropTable(
                 name: "Choices");
 
             migrationBuilder.DropTable(
+                name: "PlayedModel");
+
+            migrationBuilder.DropTable(
                 name: "Questions");
+
+            migrationBuilder.DropTable(
+                name: "Logins");
         }
     }
 }
