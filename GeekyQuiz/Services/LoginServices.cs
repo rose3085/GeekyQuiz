@@ -1,4 +1,11 @@
-﻿namespace GeekyQuiz.Services.LoginServices
+﻿
+
+
+
+
+
+
+namespace GeekyQuiz.Services.LoginServices
 {
     public class LoginServices : ILoginServices
     {
@@ -20,18 +27,43 @@
                 PhoneNumber = 9883938937,
                 Password="fssdddcsev"
             }
-};
+        };
+
+        LoginModel login = new LoginModel();
+        UserRegisterModel user = new UserRegisterModel();
         private readonly DataContext _context;
         public LoginServices(DataContext context)
         {
             _context = context;
-        }
-        public async Task<List<LoginModel>> AddUser(LoginModel user)
+        } 
+        
+         public async Task<List<LoginModel>> Register(UserRegisterModel request)
         {
-           _context.Logins.Add(user);
-            await _context.SaveChangesAsync();
+           if (user.UserName != request.UserName)
+           {
+                user.UserName = request.UserName;
+                user.Email = request.Email;
+                user.PhoneNumber = request.PhoneNumber;
+                user.Password = request.Password;
+                user.ConfirmPassword = request.ConfirmPassword;
+
+                await _context.SaveChangesAsync();
+
+
+           }
+            
             return await _context.Logins.ToListAsync();
         }
+        public async Task<List<LoginModel>?> Login(UserRegisterModel request)
+        {
+           // var result = await _context.Logins.FindAsync(request.UserName);
+            if (user.UserName == request.UserName)
+            
+            await _context.SaveChangesAsync();
+            return await _context.Logins.ToListAsync();
+            
+        }
+        
 
         public async Task<List<LoginModel>?> DeleteUser(int id)
         {
@@ -61,6 +93,8 @@
             }
             return user;
         }
+
+        
 
         public async Task<List<LoginModel>?> UpdateUser(int id, LoginModel request)
         {

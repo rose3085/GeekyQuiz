@@ -14,6 +14,16 @@ namespace GeekyQuiz.Controllers
         {
             _loginServices = loginServices;
         }
+        [HttpPost("register")]
+        public async Task<ActionResult<List<LoginModel>>?> Register(UserRegisterModel request)
+        { 
+            var result = await _loginServices.Register(request);
+            if (result is null)
+            {
+                return null;
+            }
+            return Ok(result);
+        }
         [HttpGet]
         public async Task<ActionResult<List<LoginModel>>> GetAllUser()
         {
@@ -30,12 +40,13 @@ namespace GeekyQuiz.Controllers
             }
             return Ok(result);
         }
-        [HttpPost]
-        public async Task<ActionResult<List<LoginModel>>> AddUser(LoginModel user)
+       [HttpPost("login")]
+        public async Task<ActionResult<List<LoginModel>>> Login(UserRegisterModel request)
         {
-            var result =await _loginServices.AddUser(user);
+            var result =await _loginServices.Login(request);
             return Ok(result);
         }
+       
         [HttpPut("{id}")]
         public async Task<ActionResult<List<LoginModel>>?> UpdateUser(int id, LoginModel request)
         {
