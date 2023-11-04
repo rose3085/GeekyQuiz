@@ -64,9 +64,6 @@ namespace GeekyQuiz.Services.UserAnswerServices
             return await _context.Answers.ToListAsync();
         }
 
-        Task<ActionResult<List<UserAnswerModel>>> IUserAnswerServices.GetAllAnswer()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -9,7 +9,7 @@ namespace GeekyQuiz.Models
         public PlayedModel PlayId { get; set; }
         public QuestionModel QuestionId { get; set; }
         public string UserAnswer { get; set; } = string.Empty;
-        public ChoiceModel ChoiceId { get; set; }
+       // public ChoiceModel ChoiceId { get; set; }
         public bool IsCorrect { get; set; }
     }
 }
