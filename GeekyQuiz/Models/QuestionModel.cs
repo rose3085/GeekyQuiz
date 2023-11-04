@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace GeekyQuiz.Models
 {
     public class QuestionModel
@@ -8,10 +10,6 @@ namespace GeekyQuiz.Models
 
         public string Question { get; set; } = string.Empty;
 
-
-        public static implicit operator QuestionModel(int v)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

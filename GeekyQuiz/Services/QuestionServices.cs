@@ -2,7 +2,7 @@
 {
     public class QuestionServices : IQuestionServices
     {
-        public static List<QuestionModel> questions = new List<QuestionModel>
+       /* public static List<QuestionModel> questions = new List<QuestionModel>
         {
             new QuestionModel
             {
@@ -14,7 +14,7 @@
                 QuestionId = 2,
                 Question = "Which one of the following is not Http Protocol?"
             }
-        };  
+        };   */
         private readonly DataContext _context;
         public QuestionServices(DataContext context)
         {

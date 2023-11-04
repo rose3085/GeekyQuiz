@@ -57,7 +57,7 @@ namespace GeekyQuiz.Migrations
 
                     b.HasIndex("QuestionId1");
 
-                    b.ToTable("Choices");
+                    b.ToTable("Choices", (string)null);
                 });
 
             modelBuilder.Entity("GeekyQuiz.Models.LoginModel", b =>
@@ -85,7 +85,7 @@ namespace GeekyQuiz.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Logins");
+                    b.ToTable("Logins", (string)null);
                 });
 
             modelBuilder.Entity("GeekyQuiz.Models.PlayedModel", b =>
@@ -106,7 +106,7 @@ namespace GeekyQuiz.Migrations
 
                     b.HasIndex("UserId1");
 
-                    b.ToTable("PlayedModel");
+                    b.ToTable("PlayedModel", (string)null);
                 });
 
             modelBuilder.Entity("GeekyQuiz.Models.QuestionModel", b =>
@@ -123,7 +123,7 @@ namespace GeekyQuiz.Migrations
 
                     b.HasKey("QuestionId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
                 });
 
             modelBuilder.Entity("GeekyQuiz.Models.ResultModel", b =>
@@ -150,7 +150,7 @@ namespace GeekyQuiz.Migrations
 
                     b.HasIndex("PlayId1");
 
-                    b.ToTable("Results");
+                    b.ToTable("Results", (string)null);
                 });
 
             modelBuilder.Entity("GeekyQuiz.Models.UserAnswerModel", b =>
@@ -180,7 +180,7 @@ namespace GeekyQuiz.Migrations
 
                     b.HasIndex("QuestionId1");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answers", (string)null);
                 });
 
             modelBuilder.Entity("GeekyQuiz.Models.ChoiceModel", b =>

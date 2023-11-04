@@ -13,9 +13,6 @@ namespace GeekyQuiz.Models
         public string ChoiceD { get; set; } = string.Empty;
         public char CorrectOption { get; set; }
 
-        public static implicit operator ChoiceModel(char  v)
-        {
-            throw new NotImplementedException();
-        }   
+        
     }
 }
