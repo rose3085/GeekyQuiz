@@ -1,6 +1,8 @@
-﻿using GeekyQuiz.Services.QuestionServices;
+﻿using GeekyQuiz.DTO;
+using GeekyQuiz.Services.QuestionServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Data;
 using System.Reflection.Metadata.Ecma335;
 
@@ -57,12 +59,12 @@ namespace GeekyQuiz.Controllers
             return Ok(result);
         }
         [HttpGet("Get Random Question")]
-        public async Task<ActionResult<List<QuestionModel>>> GetRandomQuestion(int noOfQuestion)
-        { 
-            var result = await _questionServices.GetRandomQuestions(noOfQuestion);
+        public IActionResult? RandomQuestion(QuestionDto model)
+        {
+            var result = _questionServices.GetRandomQuestions(model);
             if (result is null)
             {
-                return null;
+                return BadRequest();
             }
             return Ok(result);
         }

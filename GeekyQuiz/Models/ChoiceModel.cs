@@ -7,10 +7,7 @@ namespace GeekyQuiz.Models
         [Key]
         public int ChoiceId { get; set; }
         public QuestionModel? QuestionId { get; set; }
-        public string ChoiceA { get; set; } = string.Empty;
-        public string ChoiceB { get; set; } = string.Empty;
-        public string ChoiceC { get; set;} = string.Empty;
-        public string ChoiceD { get; set;} = string.Empty;
+        public string Text { get; set; }
         public bool IsCorrect { get; set; }
 
         public static implicit operator ChoiceModel(bool v)

@@ -1,4 +1,8 @@
 ﻿
+using GeekyQuiz.DTO;
+using Microsoft.AspNetCore.Mvc;
+using System;
+
 namespace GeekyQuiz.Services.QuestionServices
 {
     public class QuestionServices : IQuestionServices
@@ -44,6 +48,22 @@ namespace GeekyQuiz.Services.QuestionServices
             return await _context.Questions.ToListAsync();
         }
 
+        public async Task<QuestionDto> GetRandomQuestions(QuestionDto model)
+        {
+
+            Random random = new Random();
+            var shuffledChoices = model.Text.OrderBy(c => random.Next()).ToList();
+            var randomQuestions = _context.Questions
+               .OrderBy(q => Guid.NewGuid())
+               .Take(10)
+               .Include(q => q.shuffledChoices)
+               .ToList();
+            return new QuestionDto()
+            {
+                Question = randomQuestions,
+            };
+        }
+
         public async Task<QuestionModel?> GetSingleQuestion(int id)
         {
             var result = await _context.Questions.FindAsync(id);
@@ -65,17 +85,8 @@ namespace GeekyQuiz.Services.QuestionServices
             await _context.SaveChangesAsync();
             return await _context.Questions.ToListAsync();
         }
-        public async Task<List<QuestionModel>> GetRandomQuestions(int numberOfQuestions)
-        {
-            var randomQuestions = _context.Questions
-                .OrderBy(q => Guid.NewGuid()) // Shuffling the questions
-                .Take(numberOfQuestions)
-                .ToList();
-
-            return randomQuestions;
-
-        }
 
 
+       
     }
 }
