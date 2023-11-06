@@ -15,12 +15,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<ILoginServices, LoginServices>();
-builder.Services.AddTransient<IQuestionServices, QuestionServices>();
-builder.Services.AddTransient<IUserAnswerServices, UserAnswerServices>();
-builder.Services.AddTransient<IChoiceServices, ChoiceServices>();
-
+builder.Services.AddScoped<ILoginServices, LoginServices>();
+builder.Services.AddScoped<IQuestionServices, QuestionServices>();
+builder.Services.AddScoped<IUserAnswerServices, UserAnswerServices>();
+builder.Services.AddScoped<IChoiceServices, ChoiceServices>();
+//builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDbContext<DataContext>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,3 +39,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

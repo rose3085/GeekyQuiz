@@ -65,7 +65,17 @@ namespace GeekyQuiz.Services.QuestionServices
             await _context.SaveChangesAsync();
             return await _context.Questions.ToListAsync();
         }
+        public async Task<List<QuestionModel>> GetRandomQuestions(int numberOfQuestions)
+        {
+            var randomQuestions = _context.Questions
+                .OrderBy(q => Guid.NewGuid()) // Shuffling the questions
+                .Take(numberOfQuestions)
+                .ToList();
 
-      
+            return randomQuestions;
+
+        }
+
+
     }
 }

@@ -31,13 +31,13 @@ namespace GeekyQuiz.Controllers
             return Ok(result);
         }
         [HttpPost]
-        public async Task<ActionResult<List<LoginModel>>> AddQuestion(QuestionModel question)
+        public async Task<ActionResult<List<QuestionModel>>> AddQuestion(QuestionModel question)
         {
             var result = await _questionServices.AddQuestion(question);
             return Ok(result);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<LoginModel>>?> UpdateQuestion(int id, QuestionModel request)
+        public async Task<ActionResult<List<QuestionModel>>?> UpdateQuestion(int id, QuestionModel request)
         {
             var result = await _questionServices.UpdateQuestion(id, request);
             if (result is null)
@@ -47,9 +47,19 @@ namespace GeekyQuiz.Controllers
             return Ok(result);
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<LoginModel>>?> DeleteQuestion(int id)
+        public async Task<ActionResult<List<QuestionModel>>?> DeleteQuestion(int id)
         {
             var result = await _questionServices.DeleteQuestion(id);
+            if (result is null)
+            {
+                return null;
+            }
+            return Ok(result);
+        }
+        [HttpGet("Get Random Question")]
+        public async Task<ActionResult<List<QuestionModel>>> GetRandomQuestion(int noOfQuestion)
+        { 
+            var result = await _questionServices.GetRandomQuestions(noOfQuestion);
             if (result is null)
             {
                 return null;

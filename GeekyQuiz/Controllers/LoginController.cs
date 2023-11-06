@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using GeekyQuiz.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using GeekyQuiz.Services;
-using GeekyQuiz.Services.LoginServices;
+using System.Linq;
 
 namespace GeekyQuiz.Controllers
 {
@@ -10,55 +11,34 @@ namespace GeekyQuiz.Controllers
     public class LoginController : ControllerBase
     {
         private readonly ILoginServices _loginServices;
+
         public LoginController(ILoginServices loginServices)
         {
             _loginServices = loginServices;
+
         }
-        [HttpPost("register")]
-        public async Task<ActionResult<List<LoginModel>>?> Register(UserRegisterModel request)
-        { 
-            var result = await _loginServices.Register(request);
-            if (result is null)
-            {
-                return null;
-            }
-            return Ok(result);
-        }
-        [HttpGet]
-        public async Task<ActionResult<List<LoginModel>>> GetAllUser()
+        [HttpPost("Register")]
+        public IActionResult Register(RegisterDto model)
         {
-            return await _loginServices.GetAllUser();
-           // return Ok(result);
-        }
-        [HttpGet("{id}")]
-        public async Task<ActionResult<List<LoginModel>>?> GetSingleUser(int id)
-        {
-            var result = await _loginServices.GetSingleUser(id);
-            if (result is null)
+            if (ModelState.IsValid)
             {
-                return null;
+                var result = _loginServices.RegisterUserAsync(model).Result;
+
+                return Ok(result);
             }
-            return Ok(result);
+            return BadRequest();
         }
-        [HttpPut("{id}")]
-        public async Task<ActionResult<List<LoginModel>>?> UpdateUser(int id, LoginModel request)
+        [HttpPost("Login")]
+        public IActionResult Login(LoginDto model)
         {
-            var result = await _loginServices.UpdateUser(id, request);
-            if (result is null)
+            if (ModelState.IsValid)
             {
-                return null;
+                var result = _loginServices.LoginUserAsync(model);
+                return Ok(result);
             }
-            return Ok(result);
+            return BadRequest();
         }
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<List<LoginModel>>?> DeleteUser(int id)
-        {
-            var result =await _loginServices.DeleteUser(id);
-            if (result is null) 
-            {
-                return null;
-            }
-            return Ok(result);
-        }
+
+
     }
 }
