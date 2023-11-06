@@ -35,15 +35,15 @@ namespace GeekyQuiz.Services.ChoiceServices
             return users;
         }
 
-        public Task<List<ChoiceModel>> GetChoicesForQuestion(int questionId)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<List<ChoiceModel>> GetChoicesForQuestion(int questionId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public Task<List<ChoiceModel>> GetOptionsForQuestionAsync(int questionId)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<List<ChoiceModel>> GetOptionsForQuestionAsync(int questionId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public async Task<ChoiceModel?> GetSingleChoice(int id)
         {
@@ -73,9 +73,9 @@ namespace GeekyQuiz.Services.ChoiceServices
             return await _context.Choices.ToListAsync();
         }
 
-        Task<ActionResult<List<ChoiceModel>>> IChoiceServices.GetAllChoice()
-        {
-            throw new NotImplementedException();
-        }
+        //Task<ActionResult<List<ChoiceModel>>> IChoiceServices.GetAllChoice()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

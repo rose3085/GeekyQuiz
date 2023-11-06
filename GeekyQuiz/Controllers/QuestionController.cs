@@ -51,6 +51,7 @@ namespace GeekyQuiz.Controllers
 
 
         }
+       
 
         [HttpPost]
         public async Task<ActionResult<List<LoginModel>>> AddQuestion(QuestionModel question)
