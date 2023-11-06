@@ -10,6 +10,7 @@
         Task<List<QuestionModel>?> UpdateQuestion(int id, QuestionModel request);
 
 
-        Task<List<QuestionModel>> GetRandomQuestions(int numberOfQuestions);
+        Task<List<QuestionModel>> GetRandomQuestion(int numberOfQuestions);
+       Task<List<ChoiceModel>> GetChoicesForQuestionAsync(int questionId);
     }
 }

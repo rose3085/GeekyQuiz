@@ -16,6 +16,13 @@ namespace GeekyQuiz.Services
             throw new NotImplementedException();
         }
 
+        //public Task<List<ResultModel>> AddResult(ResultModel user)
+        //{
+        //    _context.Results.Add(user);
+        //     await _context.SaveChangesAsync();
+        //     return await _context.Results.ToListAsync();
+        //}
+
         public Task<List<ResultModel>> DeleteResult(int id)
         {
             throw new NotImplementedException();

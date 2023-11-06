@@ -14,5 +14,6 @@ namespace GeekyQuiz.Models
         public char CorrectOption { get; set; }
 
         
+
     }
 }

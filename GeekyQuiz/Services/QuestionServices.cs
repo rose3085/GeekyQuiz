@@ -1,4 +1,6 @@
-﻿namespace GeekyQuiz.Services.QuestionServices
+﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+
+namespace GeekyQuiz.Services.QuestionServices
 {
     public class QuestionServices : IQuestionServices
     {
@@ -44,6 +46,21 @@
             return await _context.Questions.ToListAsync();
         }
 
+        public Task<List<ChoiceModel>> GetChoicesForQuestionAsync(int questionId)
+        {
+            return _context.Choices.Where(o => o.QuestionId == questionId).ToList();
+        }
+
+        //public Task<List<ChoiceModel>> GetChoicesForQuestionAsync(int questionId)
+        //{
+        //    var options = _context.Choices
+        //       .Where(o => o.QuestionId == questionId)
+        //       .ToList();
+
+        //        return options;
+        //}
+
+
         public async Task<QuestionModel?> GetSingleQuestion(int id)
         {
             var result = await _context.Questions.FindAsync(id);
@@ -66,16 +83,24 @@
             return await _context.Questions.ToListAsync();
         }
 
-           async Task<List<QuestionModel>> IQuestionServices.GetRandomQuestions(int numberOfQuestions)
+           async Task<List<QuestionModel>> IQuestionServices.GetRandomQuestion(int numberOfQuestions)
            {
                var randomQuestions = _context.Questions
-                   .OrderBy(q => Guid.NewGuid()) // Shuffling the questions
+                   .OrderBy(q => Guid.NewGuid()) 
                    .Take(numberOfQuestions)
                    .ToList();
-
-               return randomQuestions;
+            return randomQuestions;
 
            }
-        
+        //public List<ChoiceModel> GetChoicesForQuestion(int questionId)
+        //{
+        //    // Use your Entity Framework or database query to retrieve options for a specific question by its ID.
+        //    var options = _context.Choices
+        //        .Where(o => o.QuestionsId == questionId)
+        //        .ToList();
+
+        //    return options;
+        //}
+
     }
 }

@@ -28,6 +28,12 @@ namespace GeekyQuiz.Controllers
             }
             return Ok(result);
         }
+        //[HttpGet("question/{questionId}")]
+        //public IActionResult GetOptionsForQuestion(int id)
+        //{
+        //   // Implement logic to retrieve options for the specified question.
+        //    return Ok(optionsForQuestion);
+        //}
         [HttpPost("{id}")]
         public async Task<ActionResult<List<ChoiceModel>>> AddChoice(ChoiceModel user)
         {

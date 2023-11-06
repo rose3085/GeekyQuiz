@@ -7,12 +7,13 @@ namespace GeekyQuiz.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         { }
-       /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server = .\\SQLExpress;Database=loginDb;Trusted_Connection=true;TrustServerCertificate=true;");
-
-        }  */
+            modelBuilder.Entity<QuestionModel>()
+                .HasMany(q => q.Choices)
+                .WithOne(o => o.QuestionId)
+                .HasForeignKey(o => o.QuestionId);
+        }
 
         public DbSet<LoginModel> Logins { get; set; }
         public DbSet<QuestionModel> Questions { get; set; }

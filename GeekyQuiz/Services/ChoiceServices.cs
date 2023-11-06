@@ -40,6 +40,11 @@ namespace GeekyQuiz.Services.ChoiceServices
             throw new NotImplementedException();
         }
 
+        public Task<List<ChoiceModel>> GetOptionsForQuestionAsync(int questionId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ChoiceModel?> GetSingleChoice(int id)
         {
             var user = await _context.Choices.FindAsync(id);

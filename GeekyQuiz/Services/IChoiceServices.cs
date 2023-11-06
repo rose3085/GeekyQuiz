@@ -12,5 +12,6 @@ namespace GeekyQuiz.Services.ChoiceServices
         Task<List<ChoiceModel>?> UpdateChoice(int id, ChoiceModel request);
         Task<List<ChoiceModel>?> DeleteChoice(int id);
         Task<ActionResult<List<ChoiceModel>>> GetAllChoice();
+        Task<List<ChoiceModel>> GetOptionsForQuestionAsync(int questionId);
     }
 }

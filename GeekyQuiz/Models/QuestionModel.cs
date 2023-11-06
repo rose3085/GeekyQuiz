@@ -10,6 +10,6 @@ namespace GeekyQuiz.Models
 
         public string Question { get; set; } = string.Empty;
 
-       
+        public List<ChoiceModel> Choices { get; set; }
     }
 }

@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Reflection.Metadata.Ecma335;
+using GeekyQuiz.Models;
+using Microsoft.EntityFrameworkCore;
+//using GeekyQuiz.Models.QuestionModel.Models;
+
 
 namespace GeekyQuiz.Controllers
 {
@@ -11,6 +15,8 @@ namespace GeekyQuiz.Controllers
     public class QuestionController : ControllerBase
     {
         private readonly IQuestionServices _questionServices;
+        //private object? randomQuestion;
+
         public QuestionController(IQuestionServices questionServices)
         {
             _questionServices = questionServices;
@@ -22,15 +28,19 @@ namespace GeekyQuiz.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<QuestionModel>>?> GetSingleQuestion(int id)
+        public async Task<ActionResult<List<QuestionModel>>?> GetRandomQuestion(int id)
         {
-            var result = await _questionServices.GetRandomQuestions(id);
+            var result = await _questionServices.GetRandomQuestion(id);
             if (result is null)
             {
                 return null;
             }
             return Ok(result);
+
+
         }
+
+
         [HttpPost]
         public async Task<ActionResult<List<LoginModel>>> AddQuestion(QuestionModel question)
         {
