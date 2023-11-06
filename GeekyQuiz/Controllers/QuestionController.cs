@@ -1,8 +1,6 @@
-﻿using GeekyQuiz.Services.QuestionServices;
+﻿using GeekyQuiz.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
-using System.Reflection.Metadata.Ecma335;
 
 namespace GeekyQuiz.Controllers
 {
@@ -10,51 +8,41 @@ namespace GeekyQuiz.Controllers
     [ApiController]
     public class QuestionController : ControllerBase
     {
-        private readonly IQuestionServices _questionServices;
-        public QuestionController(IQuestionServices questionServices)
+        private IQuestionRepository _questionRepo;
+        public QuestionController(IQuestionRepository questionRepo)
         {
-            _questionServices = questionServices;
+            _questionRepo = questionRepo;
+        }
+
+        [HttpGet]
+        [Route("GetQuestions")]
+        public IActionResult GetAllQuestions()
+        {
+            var res = _questionRepo.GetAllQuestions();
+            return Ok(res);
         }
         [HttpGet]
-        public async Task<ActionResult<List<QuestionModel>>> GetAllQuestion()
+        [Route("GetQuestionById/{id}")]
+        public IActionResult GetQuestions(int id)
         {
-            return await _questionServices.GetAllQuestion();
+            var res = _questionRepo.GetById(id);
+            return Ok(res);
         }
-        [HttpGet("{id}")]
-        public async Task<ActionResult<List<QuestionModel>>?> GetSingleQuestion(int id)
+        /*[HttpPost]
+        [Route("AddQuestion")]
+        public IActionResult AddQuestion(Question question)
         {
-            var result = await _questionServices.GetSingleQuestion(id);
-            if (result is null)
-            {
-                return null;
-            }
-            return Ok(result);
-        }
-        [HttpPost]
-        public async Task<ActionResult<List<LoginModel>>> AddQuestion(QuestionModel question)
+            var res = _questionRepo.AddQuestion(question);
+            return Ok(res);
+        }*/
+        [HttpPut]
+        [Route("EditQuestion/{id}")]
+        public IActionResult UpdateQuestion(int id, Question question)
         {
-            var result = await _questionServices.AddQuestion(question);
-            return Ok(result);
-        }
-        [HttpPut("{id}")]
-        public async Task<ActionResult<List<LoginModel>>?> UpdateQuestion(int id, QuestionModel request)
-        {
-            var result = await _questionServices.UpdateQuestion(id, request);
-            if (result is null)
-            {
-                return null;
-            }
-            return Ok(result);
-        }
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<List<LoginModel>>?> DeleteQuestion(int id)
-        {
-            var result = await _questionServices.DeleteQuestion(id);
-            if (result is null)
-            {
-                return null;
-            }
-            return Ok(result);
+            if(id!=question.QuestionId)
+                return BadRequest(ModelState);
+            var res = _questionRepo.EditQuestion(id, question);
+            return Ok(res);
         }
     }
 }

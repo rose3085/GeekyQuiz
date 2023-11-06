@@ -1,26 +1,25 @@
 global using GeekyQuiz.Models;
-global using GeekyQuiz.Services.LoginServices;
 global using Microsoft.EntityFrameworkCore;
 global using GeekyQuiz.Data;
-global using GeekyQuiz.Services.QuestionServices;
-//global using GeekyQuiz.Services.UserAnswerServices;
-global using GeekyQuiz.Services.UserAnswerServices;
-global using GeekyQuiz.Services.ChoiceServices;
+using GeekyQuiz.Repositories.Interfaces;
+using GeekyQuiz.Repositories.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<ILoginServices, LoginServices>();
-builder.Services.AddTransient<IQuestionServices, QuestionServices>();
-builder.Services.AddTransient<IUserAnswerServices, UserAnswerServices>();
-builder.Services.AddTransient<IChoiceServices, ChoiceServices>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+builder.Services.AddScoped<IOptionRepository, OptionRepository>();
+builder.Services.AddScoped<IResultRepository, ResultRepository>();
 
-builder.Services.AddDbContext<DataContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
