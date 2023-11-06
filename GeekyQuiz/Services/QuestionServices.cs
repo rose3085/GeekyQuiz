@@ -48,8 +48,13 @@ namespace GeekyQuiz.Services.QuestionServices
 
         public Task<List<ChoiceModel>> GetChoicesForQuestionAsync(int questionId)
         {
-            return _context.Choices.Where(o => o.QuestionId == questionId).ToList();
+            throw new NotImplementedException();
         }
+
+        //public Task<List<ChoiceModel>> GetChoicesForQuestionAsync(int questionId)
+        //{
+        //    return _context.Choices.Any(o => o.QuestionId == questionId).ToList();
+        //}
 
         //public Task<List<ChoiceModel>> GetChoicesForQuestionAsync(int questionId)
         //{

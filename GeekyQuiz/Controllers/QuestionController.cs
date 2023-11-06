@@ -28,9 +28,9 @@ namespace GeekyQuiz.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<QuestionModel>>?> GetRandomQuestion(int id)
+        public async Task<ActionResult<List<QuestionModel>>?> GetSingleQuestion(int id)
         {
-            var result = await _questionServices.GetRandomQuestion(id);
+            var result = await _questionServices.GetSingleQuestion(id);
             if (result is null)
             {
                 return null;
@@ -39,7 +39,18 @@ namespace GeekyQuiz.Controllers
 
 
         }
+        [HttpGet("Random")]
+        public async Task<ActionResult<List<QuestionModel>>?> GetRandomQuestion(int numberOfQuestions)
+        {
+            var result = await _questionServices.GetRandomQuestion(numberOfQuestions);
+            if (result is null)
+            {
+                return null;
+            }
+            return Ok(result);
 
+
+        }
 
         [HttpPost]
         public async Task<ActionResult<List<LoginModel>>> AddQuestion(QuestionModel question)
