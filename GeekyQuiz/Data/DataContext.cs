@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting.Server;
+﻿using GeekyQuiz.DTO;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.EntityFrameworkCore;
 
 namespace GeekyQuiz.Data
@@ -14,6 +15,8 @@ namespace GeekyQuiz.Data
         //        .WithOne(o => o.QuestionId)
         //        .HasForeignKey(o => o.QuestionId);
         //}
+
+       
 
         public DbSet<LoginModel> Logins { get; set; }
         public DbSet<QuestionModel> Questions { get; set; }

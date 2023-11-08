@@ -58,3 +58,6 @@ E:\LEC_Expo_Project02\GeekyQuiz\GeekyQuiz\obj\Debug\net6.0\refint\GeekyQuiz.dll
 E:\LEC_Expo_Project02\GeekyQuiz\GeekyQuiz\obj\Debug\net6.0\GeekyQuiz.pdb
 E:\LEC_Expo_Project02\GeekyQuiz\GeekyQuiz\obj\Debug\net6.0\GeekyQuiz.genruntimeconfig.cache
 E:\LEC_Expo_Project02\GeekyQuiz\GeekyQuiz\obj\Debug\net6.0\ref\GeekyQuiz.dll
+E:\LEC_Expo_Project02\GeekyQuiz\GeekyQuiz\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+E:\LEC_Expo_Project02\GeekyQuiz\GeekyQuiz\bin\Debug\net6.0\Newtonsoft.Json.dll
+E:\LEC_Expo_Project02\GeekyQuiz\GeekyQuiz\bin\Debug\net6.0\OpenAI_API.dll

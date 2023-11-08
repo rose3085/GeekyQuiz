@@ -1,4 +1,6 @@
-﻿namespace GeekyQuiz.Services.LoginServices
+﻿using GeekyQuiz.DTO;
+
+namespace GeekyQuiz.Services.LoginServices
 {
     public class LoginServices : ILoginServices
     {
@@ -61,6 +63,16 @@
                 return null;
             }
             return user;
+        }
+
+        public object LoginUserAsync(LoginDto model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object RegisterUserAsync(RegisterDto model)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<List<LoginModel>?> UpdateUser(int id, LoginModel request)

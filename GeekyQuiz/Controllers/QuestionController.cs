@@ -5,6 +5,7 @@ using System.Data;
 using System.Reflection.Metadata.Ecma335;
 using GeekyQuiz.Models;
 using Microsoft.EntityFrameworkCore;
+using GeekyQuiz.DTO;
 //using GeekyQuiz.Models.QuestionModel.Models;
 
 
@@ -51,7 +52,16 @@ namespace GeekyQuiz.Controllers
 
 
         }
-       
+        //[HttpGet("Get Random Question")]
+        //public IActionResult? RandomQuestion(QuestionDto model)
+        //{
+        //    var result = _questionServices.GetRandomQuestions(model);
+        //    if (result is null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return Ok(result);
+        //}
 
         [HttpPost]
         public async Task<ActionResult<List<LoginModel>>> AddQuestion(QuestionModel question)

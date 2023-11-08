@@ -1,4 +1,6 @@
-﻿namespace GeekyQuiz.Services.LoginServices
+﻿using GeekyQuiz.DTO;
+
+namespace GeekyQuiz.Services.LoginServices
 {
     public interface ILoginServices
     {
@@ -7,5 +9,7 @@
         Task<List<LoginModel>> AddUser(LoginModel user);
         Task<List<LoginModel>> UpdateUser(int id, LoginModel request);
         Task<List<LoginModel>> DeleteUser(int id);
+        object LoginUserAsync(LoginDto model);
+        object RegisterUserAsync(RegisterDto model);
     }
 }
