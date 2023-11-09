@@ -16,22 +16,17 @@ namespace GeekyQuiz.Services.LoginServices
             _context = context;
         }
 
-        public async Task<UserManager> LoginUserAsync(LoginDto model)
+        public UserDetail LoginUser(string email, string password)
         {
-            var user = new LoginDto()
-            {
-                Email = model.Email,
-                Password = model.Password,
-            };
-            if (CheckUserData(model.Email, model.Password) is false)
+            
+            if (CheckUserData(email, password) is false)
             {
                 return null;
             }
+            var user = _context.User.FirstOrDefault(x => x.Email ==email);
+            return user;
 
-            return new UserManager()
-            {
-                IsSuccess = true,
-            };
+            
         }
 
         public async Task<UserManager> RegisterUserAsync(RegisterDto model)

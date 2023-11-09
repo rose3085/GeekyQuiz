@@ -27,14 +27,20 @@ namespace GeekyQuiz.Controllers
                 return Ok(result);
             }
             
+            
             return BadRequest();
         }
-        [HttpPost("Login")]
-        public IActionResult Login(LoginDto model)
+        [HttpGet("Login")]
+        public IActionResult Login(string email,string password)
         {
             if (ModelState.IsValid)
             {
-                var result = _loginServices.LoginUserAsync(model);
+                var result = _loginServices.LoginUser(email, password);
+                if(result ==  null)
+                {
+                    return NotFound(email + " is not registered.");
+                }
+                else
                 return Ok(result);
             }
             return BadRequest();
