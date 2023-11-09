@@ -7,24 +7,12 @@ namespace GeekyQuiz.Services.QuestionServices
 {
     public class QuestionServices : IQuestionServices
     {
-        public static List<QuestionModel> questions = new List<QuestionModel>
-        {
-            new QuestionModel
-            {
-                QuestionId=1,
-                Question = "What does IP stands for?"
-            },
-            new QuestionModel
-            {
-                QuestionId = 2,
-                Question = "Which one of the following is not Http Protocol?"
-            }
-        };
         private readonly DataContext _context;
         public QuestionServices(DataContext context)
         {
             _context = context;
         }
+
         public async Task<List<QuestionModel>> AddQuestion(QuestionModel question)
         {
             _context.Questions.Add(question);
@@ -42,27 +30,31 @@ namespace GeekyQuiz.Services.QuestionServices
             await _context.SaveChangesAsync();
             return await _context.Questions.ToListAsync();
         }
-       
+
         public async Task<List<QuestionModel>> GetAllQuestion()
         {
             return await _context.Questions.ToListAsync();
         }
 
-        public async Task<QuestionDto> GetRandomQuestions(QuestionDto model)
+        public Task<List<ChoiceModel>> GetChoicesForQuestionAsync(int questionId)
         {
-
-            Random random = new Random();
-            var shuffledChoices = model.Text.OrderBy(c => random.Next()).ToList();
-            var randomQuestions = _context.Questions
-               .OrderBy(q => Guid.NewGuid())
-               .Take(10)
-               .Include(q => q.shuffledChoices)
-               .ToList();
-            return new QuestionDto()
-            {
-                Question = randomQuestions,
-            };
+            throw new NotImplementedException();
         }
+
+        //public Task<List<ChoiceModel>> GetChoicesForQuestionAsync(int questionId)
+        //{
+        //    return _context.Choices.Any(o => o.QuestionId == questionId).ToList();
+        //}
+
+        //public Task<List<ChoiceModel>> GetChoicesForQuestionAsync(int questionId)
+        //{
+        //    var options = _context.Choices
+        //       .Where(o => o.QuestionId == questionId)
+        //       .ToList();
+
+        //        return options;
+        //}
+
 
         public async Task<QuestionModel?> GetSingleQuestion(int id)
         {
@@ -86,7 +78,16 @@ namespace GeekyQuiz.Services.QuestionServices
             return await _context.Questions.ToListAsync();
         }
 
+        async Task<List<QuestionModel>> IQuestionServices.GetRandomQuestion(int numberOfQuestions)
+        {
+            var randomQuestions = _context.Questions
+                .OrderBy(q => Guid.NewGuid())
+                .Take(numberOfQuestions)
+                .ToList();
+            return randomQuestions;
 
-       
+        }
+
+
     }
 }

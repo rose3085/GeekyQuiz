@@ -8,10 +8,6 @@
             {
                 ChoiceId = 1,
                 QuestionId = 2,
-                ChoiceA = "POST",
-                ChoiceB = "UPDATE ",
-                ChoiceC = "GET",
-                ChoiceD = "DELETE",
                 IsCorrect = true,   
             }
         };
@@ -64,11 +60,11 @@
                 return null;
             }
             user.QuestionId = request.QuestionId;
-            user.ChoiceA = request.ChoiceA;
-            user.ChoiceB = request.ChoiceB;
-            user.ChoiceC = request.ChoiceC;
-            user.ChoiceD = request.ChoiceD;
-            user.IsCorrect = request.IsCorrect;
+            //user.ChoiceA = request.ChoiceA;
+            //user.ChoiceB = request.ChoiceB;
+            //user.ChoiceC = request.ChoiceC;
+            //user.ChoiceD = request.ChoiceD;
+            //user.IsCorrect = request.IsCorrect;
 
             await _context.SaveChangesAsync();
             return await _context.Choices.ToListAsync();

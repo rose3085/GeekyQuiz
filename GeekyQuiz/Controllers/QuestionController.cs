@@ -13,6 +13,8 @@ namespace GeekyQuiz.Controllers
     public class QuestionController : ControllerBase
     {
         private readonly IQuestionServices _questionServices;
+        //private object? randomQuestion;
+
         public QuestionController(IQuestionServices questionServices)
         {
             _questionServices = questionServices;
@@ -22,6 +24,7 @@ namespace GeekyQuiz.Controllers
         {
             return await _questionServices.GetAllQuestion();
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<List<QuestionModel>>?> GetSingleQuestion(int id)
         {
@@ -31,15 +34,40 @@ namespace GeekyQuiz.Controllers
                 return null;
             }
             return Ok(result);
+
+
         }
+        [HttpGet("Random")]
+        public async Task<ActionResult<List<QuestionModel>>?> GetRandomQuestion(int numberOfQuestions)
+        {
+            var result = await _questionServices.GetRandomQuestion(numberOfQuestions);
+            if (result is null)
+            {
+                return null;
+            }
+            return Ok(result);
+
+
+        }
+        //[HttpGet("Get Random Question")]
+        //public IActionResult? RandomQuestion(QuestionDto model)
+        //{
+        //    var result = _questionServices.GetRandomQuestions(model);
+        //    if (result is null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    return Ok(result);
+        //}
+
         [HttpPost]
-        public async Task<ActionResult<List<QuestionModel>>> AddQuestion(QuestionModel question)
+        public async Task<ActionResult<List<UserDetail>>> AddQuestion(QuestionModel question)
         {
             var result = await _questionServices.AddQuestion(question);
             return Ok(result);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<QuestionModel>>?> UpdateQuestion(int id, QuestionModel request)
+        public async Task<ActionResult<List<UserDetail>>?> UpdateQuestion(int id, QuestionModel request)
         {
             var result = await _questionServices.UpdateQuestion(id, request);
             if (result is null)
@@ -49,22 +77,12 @@ namespace GeekyQuiz.Controllers
             return Ok(result);
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<QuestionModel>>?> DeleteQuestion(int id)
+        public async Task<ActionResult<List<UserDetail>>?> DeleteQuestion(int id)
         {
             var result = await _questionServices.DeleteQuestion(id);
             if (result is null)
             {
                 return null;
-            }
-            return Ok(result);
-        }
-        [HttpGet("Get Random Question")]
-        public IActionResult? RandomQuestion(QuestionDto model)
-        {
-            var result = _questionServices.GetRandomQuestions(model);
-            if (result is null)
-            {
-                return BadRequest();
             }
             return Ok(result);
         }

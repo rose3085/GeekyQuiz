@@ -25,14 +25,13 @@ namespace GeekyQuiz.Services.LoginServices
             };
             if (CheckUserData(model.Email, model.Password) is false)
             {
-                return new UserManager()
-                {
-                    IsSuccess = false,
-                    Message = "Please register the user"
-                };
+                return null;
             }
+
             return new UserManager()
-            { IsSuccess = true };
+            {
+                IsSuccess = true,
+            };
         }
 
         public async Task<UserManager> RegisterUserAsync(RegisterDto model)
@@ -45,32 +44,35 @@ namespace GeekyQuiz.Services.LoginServices
                 ConfirmPassword = model.ConfirmPassword,
             };
             if (CheckUserData(model.Email, model.Password) == true)
-
+            {
                 return new UserManager()
-                {
+                { 
                     IsSuccess = false,
                     Message = "User already exist"
                 };
+                    }
 
             if (model.Password != model.ConfirmPassword)
+            { 
                 return new UserManager()
-                {
-                    IsSuccess = false,
-                    Message = "Password did not match.",
-                };
+                    { 
+                        IsSuccess = false,
+                        Message = "Password didn,t match"
+                    };
+            }
 
+            
             return new UserManager()
             {
                 IsSuccess = true,
-                Message = "User created"
-
             };
+           
 
         }
         private bool CheckUserData(string Email, string Password)
         {
-            var result = _context.Users.Where(x => x.Email == Email && x.Password == Password);
-            if (result is null)
+            var result = _context.User.Any(x => x.Email == Email && x.Password == Password);
+            if (result == null)
             {
                 return false;
             }

@@ -6,12 +6,14 @@ global using GeekyQuiz.Services.QuestionServices;
 //global using GeekyQuiz.Services.UserAnswerServices;
 global using GeekyQuiz.Services.UserAnswerServices;
 global using GeekyQuiz.Services.ChoiceServices;
+using GeekyQuiz.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddHostedService<BackgroundWorkerServices>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

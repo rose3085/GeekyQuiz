@@ -13,7 +13,7 @@ namespace GeekyQuiz.Data
             optionsBuilder.UseSqlServer("Server = .\\SQLExpress;Database=GeekyQuizDb;Trusted_Connection=true;TrustServerCertificate=true;");
 
         }
-        public DbSet<UserDetail> Users { get; set; }
+        public DbSet<UserDetail> User { get; set; }
         
         public DbSet<QuestionModel> Questions { get; set; }
         public DbSet<UserAnswerModel> Answers { get; set; }
