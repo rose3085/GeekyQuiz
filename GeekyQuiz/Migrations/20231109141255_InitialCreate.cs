@@ -5,27 +5,11 @@
 namespace GeekyQuiz.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Logins",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<long>(type: "bigint", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Logins", x => x.UserId);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Questions",
                 columns: table => new
@@ -40,20 +24,19 @@ namespace GeekyQuiz.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Register",
+                name: "User",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConfirmPassword = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<long>(type: "bigint", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Register", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -63,10 +46,7 @@ namespace GeekyQuiz.Migrations
                     ChoiceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     QuestionId1 = table.Column<int>(type: "int", nullable: true),
-                    ChoiceA = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ChoiceB = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ChoiceC = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ChoiceD = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsCorrect = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -128,10 +108,7 @@ namespace GeekyQuiz.Migrations
                 name: "Answers");
 
             migrationBuilder.DropTable(
-                name: "Logins");
-
-            migrationBuilder.DropTable(
-                name: "Register");
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Choices");

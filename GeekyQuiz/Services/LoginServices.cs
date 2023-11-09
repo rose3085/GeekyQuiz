@@ -36,12 +36,12 @@ namespace GeekyQuiz.Services.LoginServices
 
         public async Task<UserManager> RegisterUserAsync(RegisterDto model)
         {
-            var user = new RegisterDto()
+            var user = new UserDetail()
             {
                 UserName = model.UserName,
                 Email = model.Email,
                 Password = model.Password,
-                ConfirmPassword = model.ConfirmPassword,
+                PhoneNumber = model.PhoneNumber,
             };
             if (CheckUserData(model.Email, model.Password) == true)
             {
@@ -57,13 +57,15 @@ namespace GeekyQuiz.Services.LoginServices
                 return new UserManager()
                     { 
                         IsSuccess = false,
-                        Message = "Password didn,t match"
+                        Message = "Password didn't match"
                     };
             }
 
-            
+            _context.User.Add(user);
+            await _context.SaveChangesAsync();
             return new UserManager()
             {
+                Message = "User registered successfully.",
                 IsSuccess = true,
             };
            
@@ -71,8 +73,8 @@ namespace GeekyQuiz.Services.LoginServices
         }
         private bool CheckUserData(string Email, string Password)
         {
-            var result = _context.User.Any(x => x.Email == Email && x.Password == Password);
-            if (result == null)
+            var result = _context.User.Any(x =>x.Email == Email && x.Password == Password);
+            if (result == false)
             {
                 return false;
             }

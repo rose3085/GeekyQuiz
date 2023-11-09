@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekyQuiz.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231104053151_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20231109150409_PhoneAdded")]
+    partial class PhoneAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,61 +33,21 @@ namespace GeekyQuiz.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChoiceId"));
 
-                    b.Property<string>("ChoiceA")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChoiceB")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChoiceC")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChoiceD")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsCorrect")
                         .HasColumnType("bit");
 
                     b.Property<int?>("QuestionId1")
                         .HasColumnType("int");
 
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ChoiceId");
 
                     b.HasIndex("QuestionId1");
 
                     b.ToTable("Choices");
-                });
-
-            modelBuilder.Entity("GeekyQuiz.Models.LoginModel", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("PhoneNumber")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Logins");
                 });
 
             modelBuilder.Entity("GeekyQuiz.Models.QuestionModel", b =>
@@ -137,7 +97,7 @@ namespace GeekyQuiz.Migrations
                     b.ToTable("Answers");
                 });
 
-            modelBuilder.Entity("GeekyQuiz.Models.UserRegisterModel", b =>
+            modelBuilder.Entity("GeekyQuiz.Models.UserDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -145,35 +105,27 @@ namespace GeekyQuiz.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ConfirmPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Register");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("GeekyQuiz.Models.ChoiceModel", b =>
                 {
                     b.HasOne("GeekyQuiz.Models.QuestionModel", "QuestionId")
-                        .WithMany()
+                        .WithMany("Choice")
                         .HasForeignKey("QuestionId1");
 
                     b.Navigation("QuestionId");
@@ -192,6 +144,11 @@ namespace GeekyQuiz.Migrations
                     b.Navigation("IsCorrect");
 
                     b.Navigation("QuestionId");
+                });
+
+            modelBuilder.Entity("GeekyQuiz.Models.QuestionModel", b =>
+                {
+                    b.Navigation("Choice");
                 });
 #pragma warning restore 612, 618
         }
