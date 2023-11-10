@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekyQuiz.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231109150409_PhoneAdded")]
-    partial class PhoneAdded
+    [Migration("20231110072453_InitialMIgration")]
+    partial class InitialMIgration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -10,7 +10,7 @@ namespace GeekyQuiz.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server = DESKTOP-3GSFCVV\\SQLEXPRESS;Database=GeekyQuizDb;Trusted_Connection=true;TrustServerCertificate=true;");
+            optionsBuilder.UseSqlServer("Server = .\\SQLEXPRESS;Database=GeekyQuizDb;Trusted_Connection=true;TrustServerCertificate=true;");
 
         }
         public DbSet<UserDetail> User { get; set; }

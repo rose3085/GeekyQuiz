@@ -27,6 +27,7 @@ namespace GeekyQuiz.Controllers
                 return Ok(result);
             }
             
+
             
             return BadRequest();
         }

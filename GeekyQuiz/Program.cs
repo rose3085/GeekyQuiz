@@ -3,10 +3,10 @@ global using GeekyQuiz.Services.LoginServices;
 global using Microsoft.EntityFrameworkCore;
 global using GeekyQuiz.Data;
 global using GeekyQuiz.Services.QuestionServices;
-//global using GeekyQuiz.Services.UserAnswerServices;
 global using GeekyQuiz.Services.UserAnswerServices;
 global using GeekyQuiz.Services.ChoiceServices;
-using GeekyQuiz.Services;
+global using GeekyQuiz.Services;
+global using GeekyQuiz.Services.TaskSchedulerService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,16 +23,17 @@ builder.Services.AddScoped<IUserAnswerServices, UserAnswerServices>();
 builder.Services.AddScoped<IChoiceServices, ChoiceServices>();
 //builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDbContext<DataContext>();
+builder.Services.AddScoped<TaskSchedulerService>();
 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
 app.UseHttpsRedirection();
 
@@ -41,4 +42,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
+    
