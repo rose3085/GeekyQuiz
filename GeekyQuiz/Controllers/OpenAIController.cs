@@ -15,12 +15,12 @@ namespace GeekyQuiz.Controllers
         [Route("GetAnswer")]
         public async Task<IActionResult> GetResult(string input)
         {
-            string apiKey = "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";
+            string apiKey = "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";
             string response = "";
             OpenAIAPI openai = new OpenAIAPI(apiKey);
             CompletionRequest completion = new CompletionRequest();
             completion.Prompt = input;
-            completion.Model = "gpt-3.5-turbo";
+            completion.Model = OpenAI_API.Models.Model.DavinciText;
             completion.MaxTokens = 1024;
             completion.Temperature = 0.5;
             var output = await openai.Completions.CreateCompletionAsync(completion);
@@ -28,7 +28,7 @@ namespace GeekyQuiz.Controllers
             {
                 foreach (var item in output.Completions)
                 {
-                    response = item.Text;
+                    response += item.Text;
                 }
                 return Ok(response);
             }

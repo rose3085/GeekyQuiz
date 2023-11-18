@@ -1,4 +1,5 @@
-﻿using GeekyQuiz.Repositories.Interfaces;
+﻿using GeekyQuiz.Models.DTOs;
+using GeekyQuiz.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,9 @@ namespace GeekyQuiz.Controllers
         }
         [HttpPost]
         [Route("AddOptions")]
-        public IActionResult AddOption(Option option)
+        public IActionResult AddOption(QuestionOption questionopts)
         {
-            var res = _optionRepository.AddOptions(option);
+            var res = _optionRepository.AddOptions(questionopts);
 
             return Ok(res);
         }

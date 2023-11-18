@@ -1,4 +1,5 @@
-﻿using GeekyQuiz.Repositories.Interfaces;
+﻿using GeekyQuiz.Models.DTOs;
+using GeekyQuiz.Repositories.Interfaces;
 using System.Text;
 
 namespace GeekyQuiz.Repositories.Implementations
@@ -10,11 +11,24 @@ namespace GeekyQuiz.Repositories.Implementations
         {
             _context = context;
         }
-        public string AddOptions(Option option)
+        public string AddOptions(QuestionOption questionOption)
         {
+            var option = new Option
+            {
+                OptionA = questionOption.OptionA,
+                OptionB = questionOption.OptionB,
+                OptionC = questionOption.OptionC,
+                OptionD = questionOption.OptionD,
+                CorrectOption = questionOption.CorrectOption,
+                Question = new Question
+                {
+                    QuestionText = questionOption.QuestionText,
+                }
+
+            };
             _context.Options.Add(option);
             _context.SaveChanges();
-            return "Options added ";
+            return "Queston and options added ";
         }
         public string EditOptions(int id, Option option)
         {

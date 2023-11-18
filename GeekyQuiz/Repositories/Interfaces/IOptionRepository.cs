@@ -1,8 +1,10 @@
-﻿namespace GeekyQuiz.Repositories.Interfaces
+﻿using GeekyQuiz.Models.DTOs;
+
+namespace GeekyQuiz.Repositories.Interfaces
 {
     public interface IOptionRepository
     {
-        string AddOptions(Option option);
+        string AddOptions(QuestionOption questionOption);
         string EditOptions(int id, Option option);
         Option GetById(int id);
     }

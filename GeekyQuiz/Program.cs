@@ -28,16 +28,8 @@ builder.Services.AddScoped<IResultRepository, ResultRepository>();
 builder.Services.AddCronJob<OpenAICronJob>(c =>
 {
     c.TimeZoneInfo = TimeZoneInfo.Local;
-    c.CronExpression = @"*/1 * * * *";
+    c.CronExpression = @"*/30 * * * *";
 });
-//public void ConfigureServices(IServiceCollection services)
-//{
-//    services.AddCronJob<OpenAICronJob>(c =>
-//    {
-//        c.TimeZoneInfo = TimeZoneInfo.Local;
-//        c.CronExpression = @"*/1 * * * *";
-//    });
-//}
 
 var app = builder.Build();
 
