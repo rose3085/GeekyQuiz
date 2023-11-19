@@ -3,28 +3,38 @@ global using GeekyQuiz.Services.LoginServices;
 global using Microsoft.EntityFrameworkCore;
 global using GeekyQuiz.Data;
 global using GeekyQuiz.Services.QuestionServices;
-global using GeekyQuiz.Services.UserAnswerServices;
+global using GeekyQuiz.Services.ResultServices;
 global using GeekyQuiz.Services.ChoiceServices;
 global using GeekyQuiz.Services;
-global using GeekyQuiz.Services.TaskSchedulerService;
+using GeekyQuiz.Cron;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options => {
+    options.AddPolicy(name: "AllowOrigin", policy => {
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddHostedService<BackgroundWorkerServices>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ILoginServices, LoginServices>();
 builder.Services.AddScoped<IQuestionServices, QuestionServices>();
-builder.Services.AddScoped<IUserAnswerServices, UserAnswerServices>();
-builder.Services.AddScoped<IChoiceServices, ChoiceServices>();
+builder.Services.AddScoped<IResultServices, ResultServices>();
+builder.Services.AddScoped<IOptionServices, OptionServices>();
 //builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDbContext<DataContext>();
-builder.Services.AddScoped<TaskSchedulerService>();
 
+builder.Services.AddCronJob<OpenAiCronJob>(c =>
+{
+    c.TimeZoneInfo = TimeZoneInfo.Local;
+    c.CronExpression = @"*/30 * * * *";
+});
 
 var app = builder.Build();
 

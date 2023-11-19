@@ -13,12 +13,7 @@ namespace GeekyQuiz.Services.QuestionServices
             _context = context;
         }
 
-        public async Task<List<QuestionModel>> AddQuestion(QuestionModel question)
-        {
-            _context.Questions.Add(question);
-            await _context.SaveChangesAsync();
-            return await _context.Questions.ToListAsync();
-        }
+        
         public async Task<List<QuestionModel>?> DeleteQuestion(int id)
         {
             var results = await _context.Questions.FindAsync(id);
@@ -36,10 +31,7 @@ namespace GeekyQuiz.Services.QuestionServices
             return await _context.Questions.ToListAsync();
         }
 
-        public Task<List<ChoiceModel>> GetChoicesForQuestionAsync(int questionId)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         //public Task<List<ChoiceModel>> GetChoicesForQuestionAsync(int questionId)
         //{
@@ -78,16 +70,7 @@ namespace GeekyQuiz.Services.QuestionServices
             return await _context.Questions.ToListAsync();
         }
 
-        async Task<List<QuestionModel>> IQuestionServices.GetRandomQuestion(int numberOfQuestions)
-        {
-            var randomQuestions = _context.Questions
-                .OrderBy(q => Guid.NewGuid())
-                .Take(numberOfQuestions)
-                .ToList();
-            return randomQuestions;
-
-        }
-
+       
 
     }
 }

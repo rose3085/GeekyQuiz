@@ -10,7 +10,7 @@ namespace GeekyQuiz.Models
         public string? PhoneNumber { get; set; }
         public string? Password { get; internal set; }
 
-        //public Authenicate? UserData { get; set; }
+        
 
     }
 }

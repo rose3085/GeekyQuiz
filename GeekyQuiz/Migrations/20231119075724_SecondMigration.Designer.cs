@@ -3,6 +3,7 @@ using GeekyQuiz.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekyQuiz.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231119075724_SecondMigration")]
+    partial class SecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,7 +90,10 @@ namespace GeekyQuiz.Migrations
                     b.Property<int>("IsCorrectOptionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuestionId")
+                    b.Property<int>("PlayId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionId1")
                         .HasColumnType("int");
 
                     b.Property<string>("UserAnswer")
@@ -98,7 +104,7 @@ namespace GeekyQuiz.Migrations
 
                     b.HasIndex("IsCorrectOptionId");
 
-                    b.HasIndex("QuestionId");
+                    b.HasIndex("QuestionId1");
 
                     b.ToTable("Answers");
                 });
@@ -147,15 +153,15 @@ namespace GeekyQuiz.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GeekyQuiz.Models.QuestionModel", "Questions")
+                    b.HasOne("GeekyQuiz.Models.QuestionModel", "QuestionId")
                         .WithMany()
-                        .HasForeignKey("QuestionId")
+                        .HasForeignKey("QuestionId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("IsCorrect");
 
-                    b.Navigation("Questions");
+                    b.Navigation("QuestionId");
                 });
 #pragma warning restore 612, 618
         }

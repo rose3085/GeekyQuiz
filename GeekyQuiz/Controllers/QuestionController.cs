@@ -37,35 +37,7 @@ namespace GeekyQuiz.Controllers
 
 
         }
-        [HttpGet("Random")]
-        public async Task<ActionResult<List<QuestionModel>>?> GetRandomQuestion(int numberOfQuestions)
-        {
-            var result = await _questionServices.GetRandomQuestion(numberOfQuestions);
-            if (result is null)
-            {
-                return null;
-            }
-            return Ok(result);
-
-
-        }
-        //[HttpGet("Get Random Question")]
-        //public IActionResult? RandomQuestion(QuestionDto model)
-        //{
-        //    var result = _questionServices.GetRandomQuestions(model);
-        //    if (result is null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    return Ok(result);
-        //}
-
-        [HttpPost]
-        public async Task<ActionResult<List<UserDetail>>> AddQuestion(QuestionModel question)
-        {
-            var result = await _questionServices.AddQuestion(question);
-            return Ok(result);
-        }
+       
         [HttpPut("{id}")]
         public async Task<ActionResult<List<UserDetail>>?> UpdateQuestion(int id, QuestionModel request)
         {
