@@ -11,17 +11,17 @@ namespace GeekyQuiz.Services.ResultServices
         {
             _context = context;
         }
-        public  List<Result> GetResult()
+        public async Task< List<ResultModel>> GetResult()
         {
-            var allResult = _context.Results.ToList();
+            var allResult = await _context.Results.ToListAsync();
             return allResult;
         }
-        public string AddResult(int userId, CreateResultDto result)
+        public async Task<List<ResultModel>> AddResult(int userId, CreateResultDto result)
         {
             var existingUser = _context.User.FirstOrDefault(x => x.Id == userId);
             if (existingUser == null)
             {
-                return "User not found";
+                return null;
             }
             var _result = new ResultModel()
             {
@@ -30,14 +30,14 @@ namespace GeekyQuiz.Services.ResultServices
                 StartTime = result.StarTime,
                 EndTime = result.EndTime,
             };
-            _context.Add(_result);
-            _context.SaveChanges();
-            return "Result added";
+            await _context.AddAsync(_result);
+            await _context.SaveChangesAsync();
+            return await _context.Results.ToListAsync();
         }
-        public List<Result> GetByUserName(string userName)
+        public async Task<List<ResultModel>> GetByUserName(string userName)
         {
-            var user = _context.User.FirstOrDefault(x => x.UserName == userName);
-            var results = _context.Results.Where(x => x.Users == user).ToList();
+            var user =await _context.User.FindAsync(userName);
+            var results =await _context.Results.Where(x => x.Users == user).ToListAsync();
             return results;
         }
     }

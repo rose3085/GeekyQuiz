@@ -1,16 +1,17 @@
 ﻿using GeekyQuiz.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GeekyQuiz.Services.ChoiceServices
 {
     public class OptionServices : IOptionServices
     {
-       
+       // private const string v = "Option added succcessfully";
         private readonly DataContext _context;
         public OptionServices(DataContext context)
         {
             _context = context;
         }
-        public string AddOptions(QuestionOption questionOption)
+        public async List<OptionModel> AddOptions(QuestionOption questionOption)
         {
             var option = new OptionModel
             {
@@ -25,9 +26,9 @@ namespace GeekyQuiz.Services.ChoiceServices
                 }
 
             };
-            _context.Options.Add(option);
-            _context.SaveChanges();
-            return "Question and options added ";
+            await _context.Add(option);
+             _context.SaveChanges();
+            return "Options added sucessfully";
         }
        
 
@@ -36,7 +37,7 @@ namespace GeekyQuiz.Services.ChoiceServices
             var users = await _context.Options.ToListAsync();
             return users;
         }
-        public async Task<OptionModel>? GetSingleOption(int id)
+        public async Task<OptionModel>? GetSingleQuestionOption(int id)
         {
             var user = await _context.Options.FindAsync(id);
             if (user is null)
@@ -46,20 +47,20 @@ namespace GeekyQuiz.Services.ChoiceServices
             return user;
         }
 
-        public string UpdateOption(int id, OptionModel option)
+        public async Task<List<OptionModel>> UpdateOption(int id, OptionModel option)
         {
             var existingOption = _context.Options.FirstOrDefault(x => x.OptionId == id);
             if (existingOption == null)
             {
-                return "Optionid not found";
+                return null;
             }
             existingOption.OptionA = option.OptionA;
             existingOption.OptionB = option.OptionB;
             existingOption.OptionC = option.OptionC;
             existingOption.OptionD = option.OptionD;
             existingOption.CorrectOption = option.CorrectOption;
-            _context.SaveChanges();
-            return "Edited successfully.";
+            await _context.SaveChangesAsync();
+            return await _context.Options.ToListAsync();
         }
 
     }

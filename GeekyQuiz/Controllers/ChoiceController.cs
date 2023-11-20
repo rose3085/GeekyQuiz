@@ -20,9 +20,9 @@ namespace GeekyQuiz.Controllers
             return await _optionServices.GetAllOption();
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<OptionModel>>?> GetSingleChoice(int id)
+        public async Task<ActionResult<List<OptionModel>>?> GetSingleQuestionOption(int id)
         {
-            var result = await _optionServices.GetSingleOption(id);
+            var result = await _optionServices.GetSingleQuestionOption(id);
             if (result is null)
             {
                 return null;
@@ -32,7 +32,7 @@ namespace GeekyQuiz.Controllers
         [HttpPost("{id}")]
         public async Task<ActionResult<List<OptionModel>>> AddOptions(QuestionOption questionOption)
         { 
-            var result = _optionServices.AddOptions(questionOption);
+            var result =await _optionServices.AddOptions(questionOption);
             return Ok(result);
         }
         [HttpPut]

@@ -6,7 +6,7 @@ namespace GeekyQuiz.Models
     {
         [Key]
         public int OptionId { get; set; }
-        public QuestionModel QuestionModel { get; set; }
+        public QuestionModel Question { get; set; }
         public string OptionA { get; set; }
         public string OptionB { get; set; }
         public string OptionC { get; set; }

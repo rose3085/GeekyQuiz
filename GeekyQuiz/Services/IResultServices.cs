@@ -5,8 +5,8 @@ namespace GeekyQuiz.Services.ResultServices
 {
     public interface IResultServices 
     {
-        List<Result> GetResult();
-        string AddResult(int userId, CreateResultDto result);
-        List<Result> GetByUserName(string userName);
+        Task<List<ResultModel>> GetResult();
+        Task<List<ResultModel>> AddResult(int userId, CreateResultDto result);
+        Task<List<ResultModel>> GetByUserName(string userName);
     }
 }

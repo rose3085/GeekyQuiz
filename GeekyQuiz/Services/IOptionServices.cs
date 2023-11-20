@@ -5,8 +5,8 @@ namespace GeekyQuiz.Services.ChoiceServices
     public interface IOptionServices
     {
         Task<List<OptionModel>> GetAllOption();
-        Task<OptionModel>? GetSingleOption(int id);
-        string AddOptions(QuestionOption questionOption);
-        string UpdateOption(int id, OptionModel option);
+        Task<OptionModel>? GetSingleQuestionOption(int id);
+        Task<List<OptionModel>> AddOptions(QuestionOption questionOption);
+        Task<List<OptionModel>> UpdateOption(int id, OptionModel option);
     }
 }
