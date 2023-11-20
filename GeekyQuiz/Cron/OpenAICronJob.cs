@@ -3,6 +3,7 @@ using OpenAI_API.Completions;
 using OpenAI_API;
 using Microsoft.OpenApi.Exceptions;
 using GeekyQuiz.Models.DTOs;
+using System.Text.RegularExpressions;
 
 namespace GeekyQuiz.Cron
 {
@@ -65,7 +66,7 @@ namespace GeekyQuiz.Cron
                 using(var scope = _serviceProvider.CreateScope())
                 {
                     var optionRepository = scope.ServiceProvider.GetRequiredService<IOptionRepository>();
-                    var res = optionRepository.AddOptions(questionOptions);
+                    var res = await optionRepository.AddOptions(questionOptions);
                     _logger.LogInformation(res);
                 }
                 await Task.CompletedTask;
@@ -85,8 +86,8 @@ namespace GeekyQuiz.Cron
         }
         private (string question, string optionA, string optionB, string optionC, string optionD, char correctOption) SeparateQuestionAndOptions(string responseText)
         {
-            var parts = responseText.Split(new[] {"A.", "B.", "C.", "D.", "a.", "b.", "c.", "d." }, StringSplitOptions.RemoveEmptyEntries);
-
+            var delimiters = new[] { "A.", "B.", "C.", "D.", "a.", "b.", "c.", "d.", "A)", "B)", "C)", "D)", "a)", "b)", "c)", "d)" };
+            var parts = responseText.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length >= 2)
             {
                 string question = parts[0].Trim();

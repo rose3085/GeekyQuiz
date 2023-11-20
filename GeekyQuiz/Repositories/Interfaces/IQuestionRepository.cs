@@ -2,9 +2,9 @@
 {
     public interface IQuestionRepository
     {
-        List<Question> GetAllQuestions();
-        Question GetById(int id);
-        string AddQuestion(Question question);
-        string EditQuestion(int id, Question ques);
+        Task<List<Question>> GetAllQuestions();
+        Task<Question> GetById(int id);
+        Task<string> AddQuestion(Question question);
+        Task<string> EditQuestion(int id, Question ques);
     }
 }

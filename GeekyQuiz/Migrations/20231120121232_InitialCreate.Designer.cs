@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekyQuiz.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231106113703_InitialCreate")]
+    [Migration("20231120121232_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

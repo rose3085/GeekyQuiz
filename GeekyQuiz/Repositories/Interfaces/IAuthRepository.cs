@@ -2,11 +2,11 @@
 {
     public interface IAuthRepository
     {
-        List<User> GetAllUsers();
-        User GetByUserNameOrEmail(string usernameOrEmail);
-        string CreateUser(User user);
-        string EditUserName(string userName, string newUserName);
-        string DeleteUser(int id);
+        Task<List<User>> GetAllUsers();
+        Task<User> GetByUserNameOrEmail(string usernameOrEmail);
+        Task<string> CreateUser(User user);
+        Task<string> EditUserName(string userName, string newUserName);
+        Task<string> DeleteUser(int id);
         
 
     }

@@ -9,33 +9,33 @@ namespace GeekyQuiz.Repositories.Implementations
         {
             _context = context;
         }
-        public List<Question> GetAllQuestions()
+        public async Task<List<Question>> GetAllQuestions()
         {
-            var questions = _context.Questions.ToList();
+            var questions = await _context.Questions.ToListAsync();
             return questions;
         }
-        public Question GetById(int id)
+        public async Task<Question> GetById(int id)
         {
-            var question = _context.Questions.FirstOrDefault(x=>x.QuestionId == id);
+            var question = await _context.Questions.FirstOrDefaultAsync(x=>x.QuestionId == id);
             if (question != null)
             {
                 return question;
             }
             return null;
         }
-        public string AddQuestion(Question question)
+        public async Task<string> AddQuestion(Question question)
         {
             _context.Questions.Add(question);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return "New question added succesfully";
         }
-        public string EditQuestion(int id, Question ques)
+        public async Task<string> EditQuestion(int id, Question ques)
         {
-            var question = _context.Questions.FirstOrDefault(x=>x.QuestionId==id);
+            var question = await _context.Questions.FirstOrDefaultAsync(x=>x.QuestionId==id);
             if (question != null)
             {
                 question = ques;
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return "Question edited";
             }
             return "Question not found";

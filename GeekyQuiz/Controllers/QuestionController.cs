@@ -16,16 +16,16 @@ namespace GeekyQuiz.Controllers
 
         [HttpGet]
         [Route("GetQuestions")]
-        public IActionResult GetAllQuestions()
+        public async Task<IActionResult> GetAllQuestions()
         {
-            var res = _questionRepo.GetAllQuestions();
+            var res = await _questionRepo.GetAllQuestions();
             return Ok(res);
         }
         [HttpGet]
         [Route("GetQuestionById/{id}")]
-        public IActionResult GetQuestions(int id)
+        public async Task<IActionResult> GetQuestions(int id)
         {
-            var res = _questionRepo.GetById(id);
+            var res = await _questionRepo.GetById(id);
             return Ok(res);
         }
         /*[HttpPost]
@@ -37,11 +37,11 @@ namespace GeekyQuiz.Controllers
         }*/
         [HttpPut]
         [Route("EditQuestion/{id}")]
-        public IActionResult UpdateQuestion(int id, Question question)
+        public async Task<IActionResult> UpdateQuestion(int id, Question question)
         {
             if(id!=question.QuestionId)
                 return BadRequest(ModelState);
-            var res = _questionRepo.EditQuestion(id, question);
+            var res = await _questionRepo.EditQuestion(id, question);
             return Ok(res);
         }
     }

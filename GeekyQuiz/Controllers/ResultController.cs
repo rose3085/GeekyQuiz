@@ -16,25 +16,25 @@ namespace GeekyQuiz.Controllers
         }
         [HttpGet]
         [Route("GetResult")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var res = _result.GetResult();
+            var res = await _result.GetResult();
             return Ok(res);
         }
 
         [HttpPost]
         [Route("AddResult")]
-        public IActionResult AddResult(int userId, CreateResultDto result)
+        public async Task<IActionResult> AddResult(int userId, CreateResultDto result)
         {
-            var res = _result.AddResult(userId, result);
+            var res = await _result.AddResult(userId, result);
             return Ok(res);
 
         }
         [HttpGet]
         [Route("GetByUserName")]
-        public IActionResult GetByUserName(string userName)
+        public async Task<IActionResult> GetByUserName(string userName)
         {
-            var res = _result.GetByUserName(userName);
+            var res = await _result.GetByUserName(userName);
             return Ok(res);
         }
 

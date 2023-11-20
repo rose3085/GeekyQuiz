@@ -4,8 +4,8 @@ namespace GeekyQuiz.Repositories.Interfaces
 {
     public interface IResultRepository
     {
-        List<Result> GetResult();
-        string AddResult(int userId, CreateResultDto result);
-       List<Result> GetByUserName(string userName);
+        Task<List<Result>> GetResult();
+        Task<string> AddResult(int userId, CreateResultDto result);
+       Task<List<Result>> GetByUserName(string userName);
     }
 }

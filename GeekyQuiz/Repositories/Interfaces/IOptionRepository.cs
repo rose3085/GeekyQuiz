@@ -4,8 +4,8 @@ namespace GeekyQuiz.Repositories.Interfaces
 {
     public interface IOptionRepository
     {
-        string AddOptions(QuestionOption questionOption);
-        string EditOptions(int id, Option option);
-        Option GetById(int id);
+        Task<string> AddOptions(QuestionOption questionOption);
+        Task<string> EditOptions(int id, Option option);
+        Task<Option> GetById(int id);
     }
 }

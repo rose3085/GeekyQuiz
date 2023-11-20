@@ -10,14 +10,14 @@ namespace GeekyQuiz.Repositories.Implementations
         {
             _context = context;
         }
-        public List<Result> GetResult()
+        public async Task<List<Result>> GetResult()
         {
-            var allResult = _context.Results.ToList();
+            var allResult = await _context.Results.ToListAsync();
             return allResult;
         }
-        public string AddResult(int userId, CreateResultDto result)
+        public async Task<string> AddResult(int userId, CreateResultDto result)
         {
-            var existingUser = _context.Users.FirstOrDefault(x => x.UserId == userId);
+            var existingUser = await _context.Users.FirstOrDefaultAsync(x => x.UserId == userId);
             if(existingUser == null)
             {
                 return "User not found";
@@ -30,13 +30,13 @@ namespace GeekyQuiz.Repositories.Implementations
                 EndTime = result.EndTime,
             };
             _context.Add(_result);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return "Result added";
         }
-        public List<Result> GetByUserName(string userName)
+        public async Task<List<Result>> GetByUserName(string userName)
         {
-            var user = _context.Users.FirstOrDefault(x => x.UserName == userName);
-            var results = _context.Results.Where(x => x.User == user).ToList();
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+            var results = await _context.Results.Where(x => x.User == user).ToListAsync();
             return results;
         }
     }

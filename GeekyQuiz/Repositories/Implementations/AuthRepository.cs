@@ -9,46 +9,46 @@ namespace GeekyQuiz.Repositories.Implementations
         {
             _context = context;
         }
-        public List<User> GetAllUsers()
+        public async Task<List<User>> GetAllUsers()
         {
-            var users = _context.Users.ToList();
+            var users = await _context.Users.ToListAsync();
             return users;
         }
-        public User GetByUserNameOrEmail(string usernameOrEmail)
+        public async Task<User> GetByUserNameOrEmail(string usernameOrEmail)
         {
-            var user = _context.Users.FirstOrDefault(x => x.UserName == usernameOrEmail || x.Email == usernameOrEmail);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == usernameOrEmail || x.Email == usernameOrEmail);
             if (user == null)
             {
                 return null;
             }
             return user;
         }
-        public string CreateUser(User user)
+        public async Task<string> CreateUser(User user)
         {
             _context.Users.Add(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return "New user added.";
         }
-        public string DeleteUser(int id)
+        public async Task<string> DeleteUser(int id)
         {
-            var user = _context.Users.FirstOrDefault(x => x.UserId == id);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
             if (user == null)
             {
                 return "User not found.";
             }
             _context.Users.Remove(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return "User deleted successfully.";
         }
-        public string EditUserName(string userName, string newUserName)
+        public async Task<string> EditUserName(string userName, string newUserName)
         {
-            var user = _context.Users.FirstOrDefault(x => x.UserName == userName);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
             if (user == null)
             {
                 return "User not found";
             }
             user.UserName = newUserName;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return "Username changed.";
         }
     }

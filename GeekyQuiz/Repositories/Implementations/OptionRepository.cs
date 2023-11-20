@@ -11,7 +11,7 @@ namespace GeekyQuiz.Repositories.Implementations
         {
             _context = context;
         }
-        public string AddOptions(QuestionOption questionOption)
+        public async Task<string> AddOptions(QuestionOption questionOption)
         {
             var option = new Option
             {
@@ -27,12 +27,12 @@ namespace GeekyQuiz.Repositories.Implementations
 
             };
             _context.Options.Add(option);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return "Queston and options added ";
         }
-        public string EditOptions(int id, Option option)
+        public async Task<string> EditOptions(int id, Option option)
         {
-            var existingOption = _context.Options.FirstOrDefault(x=>x.OptionId == id);
+            var existingOption = await _context.Options.FirstOrDefaultAsync(x=>x.OptionId == id);
             if (existingOption == null)
             {
                 return "Optionid not found";
@@ -42,12 +42,12 @@ namespace GeekyQuiz.Repositories.Implementations
             existingOption.OptionC = option.OptionC;
             existingOption.OptionD = option.OptionD;
             existingOption.CorrectOption = option.CorrectOption;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return "Edited successfully.";
         }
-        public Option GetById(int id)
+        public async Task<Option> GetById(int id)
         {
-            var options = _context.Options.FirstOrDefault(x=>x.OptionId == id);
+            var options = await _context.Options.FirstOrDefaultAsync(x=>x.OptionId == id);
             return options;
         }
     }

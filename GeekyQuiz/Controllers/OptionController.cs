@@ -16,27 +16,27 @@ namespace GeekyQuiz.Controllers
         }
         [HttpPost]
         [Route("AddOptions")]
-        public IActionResult AddOption(QuestionOption questionopts)
+        public async Task<IActionResult> AddOption(QuestionOption questionopts)
         {
-            var res = _optionRepository.AddOptions(questionopts);
+            var res = await _optionRepository.AddOptions(questionopts);
 
             return Ok(res);
         }
         [HttpPut]
         [Route("EditOptions")]
-        public IActionResult EditOption(int id, Option updateOption)
+        public async Task<IActionResult> EditOption(int id, Option updateOption)
         {
             if (updateOption == null) return BadRequest(ModelState);
             if(id != updateOption.OptionId) return BadRequest(ModelState);
 
-            var res = _optionRepository.EditOptions(id, updateOption);
+            var res = await _optionRepository.EditOptions(id, updateOption);
             return Ok(res);
         }
         [HttpGet]
         [Route("GetByID")]
-        public IActionResult GetOptions(int id)
+        public async Task<IActionResult> GetOptions(int id)
         {
-            var res = _optionRepository.GetById(id);
+            var res = await _optionRepository.GetById(id);
             return Ok(res);
         }
     }
