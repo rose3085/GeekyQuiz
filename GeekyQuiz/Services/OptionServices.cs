@@ -11,7 +11,7 @@ namespace GeekyQuiz.Services.ChoiceServices
         {
             _context = context;
         }
-        public async List<OptionModel> AddOptions(QuestionOption questionOption)
+        public async Task<string> AddOptions(QuestionOption questionOption)
         {
             var option = new OptionModel
             {
@@ -26,11 +26,10 @@ namespace GeekyQuiz.Services.ChoiceServices
                 }
 
             };
-            await _context.Add(option);
-             _context.SaveChanges();
-            return "Options added sucessfully";
+            await _context.AddAsync(option);
+            await _context.SaveChangesAsync();
+            return "Option added sucessfully";
         }
-       
 
         public async Task<List<OptionModel>> GetAllOption()
         {
@@ -47,7 +46,7 @@ namespace GeekyQuiz.Services.ChoiceServices
             return user;
         }
 
-        public async Task<List<OptionModel>> UpdateOption(int id, OptionModel option)
+        public async Task<string> UpdateOption(int id, OptionModel option)
         {
             var existingOption = _context.Options.FirstOrDefault(x => x.OptionId == id);
             if (existingOption == null)
@@ -60,7 +59,7 @@ namespace GeekyQuiz.Services.ChoiceServices
             existingOption.OptionD = option.OptionD;
             existingOption.CorrectOption = option.CorrectOption;
             await _context.SaveChangesAsync();
-            return await _context.Options.ToListAsync();
+            return "Updated sucessfully";
         }
 
     }

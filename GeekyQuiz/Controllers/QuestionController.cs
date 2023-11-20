@@ -26,7 +26,7 @@ namespace GeekyQuiz.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<QuestionModel>>?> GetSingleQuestion(int id)
+        public async Task<IActionResult> GetSingleQuestion(int id)
         {
             var result = await _questionServices.GetSingleQuestion(id);
             if (result is null)
@@ -48,6 +48,7 @@ namespace GeekyQuiz.Controllers
             }
             return Ok(result);
         }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<UserDetail>>?> DeleteQuestion(int id)
         {

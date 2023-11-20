@@ -29,6 +29,9 @@ builder.Services.AddScoped<IResultServices, ResultServices>();
 builder.Services.AddScoped<IOptionServices, OptionServices>();
 //builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddDbContext<DataContext>();
+//builder.Services.AddDbContext<DataContext>(options =>
+   // options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")), providerOptions => providerOptions.EnableRetryOnFailure());
+
 
 builder.Services.AddCronJob<OpenAiCronJob>(c =>
 {

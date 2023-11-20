@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace GeekyQuiz.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMIgration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,81 +41,76 @@ namespace GeekyQuiz.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Choices",
+                name: "Options",
                 columns: table => new
                 {
-                    ChoiceId = table.Column<int>(type: "int", nullable: false)
+                    OptionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    QuestionId1 = table.Column<int>(type: "int", nullable: true),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsCorrect = table.Column<bool>(type: "bit", nullable: false)
+                    QuestionId = table.Column<int>(type: "int", nullable: false),
+                    OptionA = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OptionB = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OptionC = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OptionD = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CorrectOption = table.Column<string>(type: "nvarchar(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Choices", x => x.ChoiceId);
+                    table.PrimaryKey("PK_Options", x => x.OptionId);
                     table.ForeignKey(
-                        name: "FK_Choices_Questions_QuestionId1",
-                        column: x => x.QuestionId1,
+                        name: "FK_Options_Questions_QuestionId",
+                        column: x => x.QuestionId,
                         principalTable: "Questions",
-                        principalColumn: "QuestionId");
+                        principalColumn: "QuestionId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Answers",
+                name: "Results",
                 columns: table => new
                 {
-                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                    ResultId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PlayId = table.Column<int>(type: "int", nullable: false),
-                    QuestionId1 = table.Column<int>(type: "int", nullable: true),
-                    UserAnswer = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsCorrectChoiceId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Score = table.Column<int>(type: "int", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Answers", x => x.AnswerId);
+                    table.PrimaryKey("PK_Results", x => x.ResultId);
                     table.ForeignKey(
-                        name: "FK_Answers_Choices_IsCorrectChoiceId",
-                        column: x => x.IsCorrectChoiceId,
-                        principalTable: "Choices",
-                        principalColumn: "ChoiceId");
-                    table.ForeignKey(
-                        name: "FK_Answers_Questions_QuestionId1",
-                        column: x => x.QuestionId1,
-                        principalTable: "Questions",
-                        principalColumn: "QuestionId");
+                        name: "FK_Results_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answers_IsCorrectChoiceId",
-                table: "Answers",
-                column: "IsCorrectChoiceId");
+                name: "IX_Options_QuestionId",
+                table: "Options",
+                column: "QuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answers_QuestionId1",
-                table: "Answers",
-                column: "QuestionId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Choices_QuestionId1",
-                table: "Choices",
-                column: "QuestionId1");
+                name: "IX_Results_UserId",
+                table: "Results",
+                column: "UserId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Answers");
+                name: "Options");
 
             migrationBuilder.DropTable(
-                name: "User");
-
-            migrationBuilder.DropTable(
-                name: "Choices");
+                name: "Results");
 
             migrationBuilder.DropTable(
                 name: "Questions");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }

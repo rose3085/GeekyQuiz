@@ -6,7 +6,7 @@ namespace GeekyQuiz.Services.ChoiceServices
     {
         Task<List<OptionModel>> GetAllOption();
         Task<OptionModel>? GetSingleQuestionOption(int id);
-        Task<List<OptionModel>> AddOptions(QuestionOption questionOption);
-        Task<List<OptionModel>> UpdateOption(int id, OptionModel option);
+        Task<string> AddOptions(QuestionOption questionOption);
+        Task<string> UpdateOption(int id, OptionModel option);
     }
 }

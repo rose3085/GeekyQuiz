@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekyQuiz.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231110072453_InitialMIgration")]
-    partial class InitialMIgration
+    [Migration("20231120150632_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,29 +25,42 @@ namespace GeekyQuiz.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GeekyQuiz.Models.ChoiceModel", b =>
+            modelBuilder.Entity("GeekyQuiz.Models.OptionModel", b =>
                 {
-                    b.Property<int>("ChoiceId")
+                    b.Property<int>("OptionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChoiceId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OptionId"));
 
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("bit");
+                    b.Property<string>("CorrectOption")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
 
-                    b.Property<int?>("QuestionId1")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
+                    b.Property<string>("OptionA")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ChoiceId");
+                    b.Property<string>("OptionB")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("QuestionId1");
+                    b.Property<string>("OptionC")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Choices");
+                    b.Property<string>("OptionD")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OptionId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Options");
                 });
 
             modelBuilder.Entity("GeekyQuiz.Models.QuestionModel", b =>
@@ -67,34 +80,31 @@ namespace GeekyQuiz.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("GeekyQuiz.Models.UserAnswerModel", b =>
+            modelBuilder.Entity("GeekyQuiz.Models.ResultModel", b =>
                 {
-                    b.Property<int>("AnswerId")
+                    b.Property<int>("ResultId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnswerId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResultId"));
 
-                    b.Property<int?>("IsCorrectChoiceId")
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Score")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlayId")
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("QuestionId1")
-                        .HasColumnType("int");
+                    b.HasKey("ResultId");
 
-                    b.Property<string>("UserAnswer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("UserId");
 
-                    b.HasKey("AnswerId");
-
-                    b.HasIndex("IsCorrectChoiceId");
-
-                    b.HasIndex("QuestionId1");
-
-                    b.ToTable("Answers");
+                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("GeekyQuiz.Models.UserDetail", b =>
@@ -122,33 +132,26 @@ namespace GeekyQuiz.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("GeekyQuiz.Models.ChoiceModel", b =>
+            modelBuilder.Entity("GeekyQuiz.Models.OptionModel", b =>
                 {
-                    b.HasOne("GeekyQuiz.Models.QuestionModel", "QuestionId")
-                        .WithMany("Choice")
-                        .HasForeignKey("QuestionId1");
+                    b.HasOne("GeekyQuiz.Models.QuestionModel", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("QuestionId");
+                    b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("GeekyQuiz.Models.UserAnswerModel", b =>
+            modelBuilder.Entity("GeekyQuiz.Models.ResultModel", b =>
                 {
-                    b.HasOne("GeekyQuiz.Models.ChoiceModel", "IsCorrect")
+                    b.HasOne("GeekyQuiz.Models.UserDetail", "Users")
                         .WithMany()
-                        .HasForeignKey("IsCorrectChoiceId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("GeekyQuiz.Models.QuestionModel", "QuestionId")
-                        .WithMany()
-                        .HasForeignKey("QuestionId1");
-
-                    b.Navigation("IsCorrect");
-
-                    b.Navigation("QuestionId");
-                });
-
-            modelBuilder.Entity("GeekyQuiz.Models.QuestionModel", b =>
-                {
-                    b.Navigation("Choice");
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

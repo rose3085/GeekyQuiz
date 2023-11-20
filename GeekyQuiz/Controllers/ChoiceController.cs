@@ -20,7 +20,7 @@ namespace GeekyQuiz.Controllers
             return await _optionServices.GetAllOption();
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<OptionModel>>?> GetSingleQuestionOption(int id)
+        public async Task<IActionResult> GetSingleQuestionOption(int id)
         {
             var result = await _optionServices.GetSingleQuestionOption(id);
             if (result is null)
@@ -30,14 +30,14 @@ namespace GeekyQuiz.Controllers
             return Ok(result);
         }
         [HttpPost("{id}")]
-        public async Task<ActionResult<List<OptionModel>>> AddOptions(QuestionOption questionOption)
+        public async Task<IActionResult> AddOptions(QuestionOption questionOption)
         { 
             var result =await _optionServices.AddOptions(questionOption);
             return Ok(result);
         }
         [HttpPut]
         [Route("UpdateOption")]
-        public IActionResult EditOption(int id, OptionModel updateOption)
+        public async Task<IActionResult> EditOption(int id, OptionModel updateOption)
         {
             if (updateOption == null) return BadRequest(ModelState);
             if (id != updateOption.OptionId) return BadRequest(ModelState);

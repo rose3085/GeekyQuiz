@@ -2,6 +2,8 @@
 using OpenAI_API.Completions;
 using OpenAI_API;
 using GeekyQuiz.DTO;
+using Microsoft.OpenApi.Exceptions;
+using Microsoft.Extensions.Logging;
 
 namespace GeekyQuiz.Cron
 {
@@ -28,8 +30,9 @@ namespace GeekyQuiz.Cron
             try
             {
                 //string apiKey = "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";
-                string apiKey = "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";
-                string ques = "Quiz question computer science with options";
+                //string apiKey = "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";
+                string apiKey = "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";
+                string ques =" 10 MCQ question related to computer science without repetition";
                 var prompt = $"Q: {ques}\nA:";
                 OpenAIAPI openai = new OpenAIAPI(apiKey);
                 CompletionRequest completion = new CompletionRequest();
@@ -64,7 +67,7 @@ namespace GeekyQuiz.Cron
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     var optionRepository = scope.ServiceProvider.GetRequiredService<IOptionServices>();
-                    var res = optionRepository.AddOptions(questionOptions);
+                    var res = await optionRepository.AddOptions(questionOptions);
                     _logger.LogInformation(res);
                 }
                 await Task.CompletedTask;

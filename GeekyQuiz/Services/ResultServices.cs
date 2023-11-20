@@ -16,7 +16,7 @@ namespace GeekyQuiz.Services.ResultServices
             var allResult = await _context.Results.ToListAsync();
             return allResult;
         }
-        public async Task<List<ResultModel>> AddResult(int userId, CreateResultDto result)
+        public async Task<string> AddResult(int userId, CreateResultDto result)
         {
             var existingUser = _context.User.FirstOrDefault(x => x.Id == userId);
             if (existingUser == null)
@@ -32,7 +32,7 @@ namespace GeekyQuiz.Services.ResultServices
             };
             await _context.AddAsync(_result);
             await _context.SaveChangesAsync();
-            return await _context.Results.ToListAsync();
+            return "Result added";
         }
         public async Task<List<ResultModel>> GetByUserName(string userName)
         {

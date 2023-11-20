@@ -31,7 +31,7 @@ namespace GeekyQuiz.Services.QuestionServices
             return await _context.Questions.ToListAsync();
         }
 
-      
+
 
         //public Task<List<ChoiceModel>> GetChoicesForQuestionAsync(int questionId)
         //{
@@ -46,7 +46,12 @@ namespace GeekyQuiz.Services.QuestionServices
 
         //        return options;
         //}
-
+        public async Task<string> AddQuestion(QuestionModel question)
+        {
+            _context.Questions.Add(question);
+            await _context.SaveChangesAsync();
+            return "New question added successfully";
+        }
 
         public async Task<QuestionModel?> GetSingleQuestion(int id)
         {
@@ -58,16 +63,16 @@ namespace GeekyQuiz.Services.QuestionServices
             return result;
         }
 
-        public async Task<List<QuestionModel>?> UpdateQuestion(int id, QuestionModel request)
+        public async Task<string> UpdateQuestion(int id, QuestionModel request)
         {
             var result = await _context.Questions.FindAsync(id);
-            if (result is null)
+            if (result == null)
             {
                 return null;
             }
             result.Question = request.Question;
             await _context.SaveChangesAsync();
-            return await _context.Questions.ToListAsync();
+            return "Question updated successfully";
         }
 
        

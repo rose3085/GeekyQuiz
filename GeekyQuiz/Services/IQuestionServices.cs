@@ -7,9 +7,9 @@ namespace GeekyQuiz.Services.QuestionServices
        
         Task<List<QuestionModel>?> DeleteQuestion(int id);
         Task<List<QuestionModel>> GetAllQuestion();
-
+        Task<string> AddQuestion(QuestionModel question);
         Task<QuestionModel?> GetSingleQuestion(int id);
-        Task<List<QuestionModel>?> UpdateQuestion(int id, QuestionModel request);
+        Task<string> UpdateQuestion(int id, QuestionModel request);
 
 
         
