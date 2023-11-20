@@ -1,97 +1,82 @@
-﻿using GeekyQuiz.DTO;
+﻿//using Azure.Identity;
+using GeekyQuiz.DTO;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace GeekyQuiz.Services.LoginServices
 {
     public class LoginServices : ILoginServices
     {
-        public static List<LoginModel> participant = new List<LoginModel>
-        {
-            new LoginModel
-            {
-                UserId = 1,
-                UserName= "Rabina",
-                Email = "rabina@gmail.com",
-                PhoneNumber = 98009383827,
-                Password="fdhddbvbhd"
-            },
-
-            new LoginModel
-            {
-                UserId = 1,
-                UserName= "Rose",
-                Email = "rose@gmail.com",
-                PhoneNumber = 9883938937,
-                Password="fssdddcsev"
-            }
-};
         private readonly DataContext _context;
         public LoginServices(DataContext context)
         {
             _context = context;
         }
-        public async Task<List<LoginModel>> AddUser(LoginModel user)
+
+        public LoginModel LoginUser(string email, string password)
         {
+
+            if (CheckUserData(email, password) is false)
+            {
+                return null;
+            }
+            var user = _context.Logins.FirstOrDefault(x => x.Email == email);
+            return user;
+
+
+        }
+
+        public async Task<UserManager> RegisterUserAsync(RegisterDto model)
+        {
+            var user = new LoginModel()
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                Password = model.Password,
+                PhoneNumber = model.PhoneNumber,
+            };
+            if (CheckUserData(model.Email, model.Password) == true)
+            {
+                return new UserManager()
+                {
+                    IsSuccess = false,
+                    Message = "User already exist"
+                };
+            }
+
+            if (model.Password != model.ConfirmPassword)
+            {
+                return new UserManager()
+                {
+                    IsSuccess = false,
+                    Message = "Password didn't match"
+                };
+            }
+
             _context.Logins.Add(user);
             await _context.SaveChangesAsync();
-            return await _context.Logins.ToListAsync();
-        }
-
-        public async Task<List<LoginModel>?> DeleteUser(int id)
-        {
-            var users = await _context.Logins.FindAsync(id);
-            if (users is null)
+            return new UserManager()
             {
-                return null;
-            }
-            _context.Logins.Remove(users);
-            await _context.SaveChangesAsync();
-            return await _context.Logins.ToListAsync();
+                Message = "User registered successfully.",
+                IsSuccess = true,
+            };
+
+
         }
-
-
-        public async Task<List<LoginModel>> GetAllUser()
+        private bool CheckUserData(string Email, string Password)
         {
-            var users = await _context.Logins.ToListAsync();
-            return users;
-        }
-
-        public async Task<LoginModel?> GetSingleUser(int id)
-        {
-            var user = await _context.Logins.FindAsync(id);
-            if (user is null)
+            var result = _context.Logins.Any(x => x.Email == Email && x.Password == Password);
+            if (result == false)
             {
-                return null;
+                return false;
             }
-            return user;
+            return true;
         }
 
-        public object LoginUserAsync(LoginDto model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object RegisterUserAsync(RegisterDto model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<LoginModel>?> UpdateUser(int id, LoginModel request)
-        {
-            var user = await _context.Logins.FindAsync(id);
-            if (user is null)
-            {
-                return null;
-            }
-            user.UserName = request.UserName;
-            user.Email = request.Email;
-            user.PhoneNumber = request.PhoneNumber;
-            user.Password = request.Password;
-
-            await _context.SaveChangesAsync();
-            return await _context.Logins.ToListAsync();
-        }
-
-        Task<List<LoginModel>> ILoginServices.GetSingleUser(int id)
+        LoginModel ILoginServices.LoginUser(string email, string password)
         {
             throw new NotImplementedException();
         }

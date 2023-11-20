@@ -35,15 +35,7 @@ namespace GeekyQuiz.Services.ChoiceServices
             return users;
         }
 
-        //public Task<List<ChoiceModel>> GetChoicesForQuestion(int questionId)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task<List<ChoiceModel>> GetOptionsForQuestionAsync(int questionId)
-        //{
-        //    throw new NotImplementedException();
-        //}
+       
 
         public async Task<ChoiceModel?> GetSingleChoice(int id)
         {
@@ -63,11 +55,11 @@ namespace GeekyQuiz.Services.ChoiceServices
                 return null;
             }
             user.QuestionId = request.QuestionId;
-            user.ChoiceA = request.ChoiceA;
-            user.ChoiceB = request.ChoiceB;
-            user.ChoiceC = request.ChoiceC;
-            user.ChoiceD = request.ChoiceD;
-            user.CorrectOption = request.CorrectOption;
+            //user.ChoiceA = request.ChoiceA;
+            //user.ChoiceB = request.ChoiceB;
+            //user.ChoiceC = request.ChoiceC;
+            //user.ChoiceD = request.ChoiceD;
+            //user.CorrectOption = request.CorrectOption;
 
             await _context.SaveChangesAsync();
             return await _context.Choices.ToListAsync();
