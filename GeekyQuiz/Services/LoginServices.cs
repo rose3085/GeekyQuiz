@@ -45,7 +45,7 @@ namespace GeekyQuiz.Services.LoginServices
                     IsSuccess = false,
                     Message = "User already exist"
                 };
-                    }
+            }
 
             if (model.Password != model.ConfirmPassword)
             { 
