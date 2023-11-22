@@ -18,17 +18,22 @@ namespace GeekyQuiz.Services.UserAnswerServices
             return await _context.Answers.ToListAsync();
         }
 
-        public async Task<List<UserAnswerModel>?> DeleteAnswer(int id)
-        {
-            var results = await _context.Answers.FindAsync(id);
-            if (results is null)
-            {
-                return null;
-            }
-            _context.Answers.Remove(results);
-            await _context.SaveChangesAsync();
-            return await _context.Answers.ToListAsync();
-        }
+        //public Task<List<UserAnswerModel>> GetAllAnswer()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public async Task<List<UserAnswerModel>?> DeleteAnswer(int id)
+        //{
+        //    var results = await _context.Answers.FindAsync(id);
+        //    if (results is null)
+        //    {
+        //        return null;
+        //    }
+        //    _context.Answers.Remove(results);
+        //    await _context.SaveChangesAsync();
+        //    return await _context.Answers.ToListAsync();
+        //}
 
         public async Task<List<UserAnswerModel>> GetAllAnswer()
         {
@@ -46,23 +51,23 @@ namespace GeekyQuiz.Services.UserAnswerServices
             return results;
         }
 
-        public async Task<List<UserAnswerModel>?> UpdateAnswer(int id, UserAnswerModel request)
-        {
-            var results = await _context.Answers.FindAsync(id);
-            if (results is null)
-            {
-                return null;
-            }
+        //public async Task<List<UserAnswerModel>?> UpdateAnswer(int id, UserAnswerModel request)
+        //{
+        //    var results = await _context.Answers.FindAsync(id);
+        //    if (results is null)
+        //    {
+        //        return null;
+        //    }
 
-            results.PlayId = request.PlayId;
-            results.AnswerId = request.AnswerId;
-            results.UserAnswer = request.UserAnswer;
-            results.IsCorrect = request.IsCorrect;
+        //    results.PlayId = request.PlayId;
+        //    results.AnswerId = request.AnswerId;
+        //    results.UserAnswer = request.UserAnswer;
+        //    results.IsCorrect = request.IsCorrect;
 
-            _context.Answers.Update(results);
-            await _context.SaveChangesAsync();
-            return await _context.Answers.ToListAsync();
-        }
+        //    _context.Answers.Update(results);
+        //    await _context.SaveChangesAsync();
+        //    return await _context.Answers.ToListAsync();
+        //}
 
         
     }

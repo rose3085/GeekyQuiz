@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "jMvFDerH5U8mAh+D/PQwCbfgSqBMFxWW03Jmj+z2mxhGsLqtlHmyCEYIwQNDB/gz5cLinxadwZ2LnvQHTWSyDA==",
+  "dgSpecHash": "9FVKmDg3JXbG3DRXHamY7yjAn5mdAMpI16iUKXmZt4DMXpan1oFiRi/4k2HVzz2UXzVdJALA8EdQtgvxkmsr3w==",
   "success": true,
   "projectFilePath": "E:\\LEC_Expo_Project02\\GeekyQuiz\\GeekyQuiz\\GeekyQuiz.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Sushant Paudal\\.nuget\\packages\\cronos\\0.7.1\\cronos.0.7.1.nupkg.sha512",
     "C:\\Users\\Sushant Paudal\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Sushant Paudal\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Sushant Paudal\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

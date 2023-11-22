@@ -2,7 +2,12 @@
 using OpenAI_API.Completions;
 using OpenAI_API;
 using Microsoft.OpenApi.Exceptions;
+using GeekyQuiz.DTO;
+using Microsoft.Extensions.Logging;
 //using GeekyQuiz.Models.DTOs;
+using GeekyQuiz.Services;
+//using System.Threading.Tasks;
+//using System.Collections.Generic;
 
 namespace GeekyQuiz.Cron
 {
@@ -60,12 +65,12 @@ namespace GeekyQuiz.Cron
                     OptionC = optionC,
                     OptionD = optionD,
                     CorrectOption = correctOption,
-                    QuestionText = question,
+                    Question = question,
                 };
                 using (var scope = _serviceProvider.CreateScope())
                 {
-                    var optionRepository = scope.ServiceProvider.GetRequiredService<IOptionRepository>();
-                    var res = optionRepository.AddOptions(questionOptions);
+                    var optionRepository = scope.ServiceProvider.GetRequiredService<IChoiceServices>();
+                    var res = optionRepository.AddChoice(questionOptions);
                     _logger.LogInformation(res);
                 }
                 await Task.CompletedTask;

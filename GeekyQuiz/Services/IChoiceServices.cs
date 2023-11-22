@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GeekyQuiz.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GeekyQuiz.Services.ChoiceServices
 {
@@ -8,7 +9,7 @@ namespace GeekyQuiz.Services.ChoiceServices
 
        // Task<List<ChoiceModel>> GetChoicesForQuestion(int QuestionId);
         Task<ChoiceModel?> GetSingleChoice(int id);
-        Task<List<ChoiceModel>> AddChoice(ChoiceModel user);
+        Task<List<ChoiceModel>> AddChoice(QuestionOption questionOption);
         Task<List<ChoiceModel>?> UpdateChoice(int id, ChoiceModel request);
         Task<List<ChoiceModel>?> DeleteChoice(int id);
        // Task<ActionResult<List<ChoiceModel>>> GetAllChoice();

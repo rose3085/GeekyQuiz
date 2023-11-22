@@ -1,4 +1,5 @@
-﻿using GeekyQuiz.Services.ChoiceServices;
+﻿using GeekyQuiz.DTO;
+using GeekyQuiz.Services.ChoiceServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,9 +36,9 @@ namespace GeekyQuiz.Controllers
         //    return Ok(optionsForQuestion);
         //}
         [HttpPost("{id}")]
-        public async Task<ActionResult<List<ChoiceModel>>> AddChoice(ChoiceModel user)
+        public async Task<ActionResult<List<ChoiceModel>>> AddChoice(QuestionOption questionOption)
         {
-            var result = await _choiceServices.AddChoice(user);
+            var result = await _choiceServices.AddChoice(questionOption);
             return Ok(result);
         }
 

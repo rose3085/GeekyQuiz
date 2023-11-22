@@ -35,25 +35,7 @@ namespace GeekyQuiz.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<List<LoginModel>>?> UpdateAnswer(int id, UserAnswerModel request)
-        {
-            var result = await _userAnswerServices.UpdateAnswer(id, request);
-            if (result is null)
-            {
-                return null;
-            }
-            return Ok(result);
-        }
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<List<LoginModel>>?> DeleteAnswer(int id)
-        {
-            var result = await _userAnswerServices.DeleteAnswer(id);
-            if (result is null)
-            {
-                return null;
-            }
-            return Ok(result);
-        }
+       
+        
     }
 }

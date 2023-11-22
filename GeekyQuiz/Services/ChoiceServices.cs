@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GeekyQuiz.DTO;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace GeekyQuiz.Services.ChoiceServices
 {
@@ -16,6 +18,10 @@ namespace GeekyQuiz.Services.ChoiceServices
             return await _context.Choices.ToListAsync();
         }
 
+        public Task<List<ChoiceModel>> AddChoice(QuestionOption questionOption)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<List<ChoiceModel>?> DeleteChoice(int id)
         {
@@ -47,23 +53,27 @@ namespace GeekyQuiz.Services.ChoiceServices
             return user;
         }
 
-        public async Task<List<ChoiceModel>?> UpdateChoice(int id, ChoiceModel request)
+        public Task<List<ChoiceModel>?> UpdateChoice(int id, ChoiceModel request)
         {
-            var user = await _context.Choices.FindAsync(id);
-            if (user is null)
+            throw new NotImplementedException();
+        }
+
+        public async Task<string> UpdateOption(int id, ChoiceModel option)
+        {
+            var existingOption = _context.Choices.FirstOrDefault(x => x.ChoiceId == id);
+            if (existingOption == null)
             {
                 return null;
             }
-            user.QuestionId = request.QuestionId;
-            //user.ChoiceA = request.ChoiceA;
-            //user.ChoiceB = request.ChoiceB;
-            //user.ChoiceC = request.ChoiceC;
-            //user.ChoiceD = request.ChoiceD;
-            //user.CorrectOption = request.CorrectOption;
-
+            existingOption.OptionA = option.OptionA;
+            existingOption.OptionB = option.OptionB;
+            existingOption.OptionC = option.OptionC;
+            existingOption.OptionD = option.OptionD;
+            existingOption.CorrectOption = option.CorrectOption;
             await _context.SaveChangesAsync();
-            return await _context.Choices.ToListAsync();
+            return "Updated sucessfully";
         }
+
 
         //Task<ActionResult<List<ChoiceModel>>> IChoiceServices.GetAllChoice()
         //{

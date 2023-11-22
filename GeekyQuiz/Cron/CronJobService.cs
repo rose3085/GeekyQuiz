@@ -1,4 +1,4 @@
-﻿using GeekyQuiz.Cron;
+﻿using Cronos;
 using System.ComponentModel;
 
 namespace GeekyQuiz.Cron
