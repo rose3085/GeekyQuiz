@@ -7,9 +7,9 @@ namespace GeekyQuiz.Models
     {
         [Key]
         public int AnswerId { get; set; }
-        [ForeignKey("QuestionId")]
-        public QuestionModel? QuestionId { get; set; }
-        public OptionModel OptionId { get; set; }
+        
+        public QuestionModel QuestionModel { get; set; }
+        public OptionModel OptionModel { get; set; }
         public string UserAnswer { get; set; } = string.Empty;
         
     }

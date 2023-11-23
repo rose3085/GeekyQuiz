@@ -8,11 +8,12 @@ namespace GeekyQuiz.Controllers
     [ApiController]
     public class ResultController : ControllerBase
     {
-        private IResultServices _result;
-        public ResultController(IResultServices result)
+        private IResultServices _resultServices;
+        public ResultController(IResultServices resultServices)
         {
-            _result = result;
+            _resultServices = resultServices;
         }
+        /*
         [HttpGet]
         [Route("GetResult")]
         public async Task<IActionResult> Get()
@@ -33,11 +34,47 @@ namespace GeekyQuiz.Controllers
             return Ok(res);
 
         }
+        
         [HttpGet]
         [Route("GetByUserName")]
         public async Task<IActionResult> GetByUserName(string userName)
         {
             var res = await _result.GetByUserName(userName);
+            if (res == null)
+            {
+                return BadRequest("Not found");
+            }
+            return Ok(res);
+        }
+
+        */
+        [HttpGet]
+        [Route("GetResult")]
+        public async Task<ActionResult<List<ResultModel>>> GetResult()
+        {
+            var res = await _resultServices.GetResult();
+            if (res == null)
+            {
+                return BadRequest("Not found");
+            }
+            return Ok(res);
+        }
+
+        [HttpPost]
+        [Route("AddResult")]
+        public async Task<ActionResult<string>> AddResult(int userId, CreateResultDto result)
+        {
+            var res = await _resultServices.AddResult(userId, result);
+            return Ok(res);
+
+        }
+        
+
+        [HttpGet]
+        [Route("GetByUserName")]
+        public async Task<ActionResult<List<ResultModel>>> GetByUserName(string userName)
+        {
+            var res = await _resultServices.GetByUserName(userName);
             if (res == null)
             {
                 return BadRequest("Not found");

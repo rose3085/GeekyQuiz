@@ -14,6 +14,8 @@ namespace GeekyQuiz.Controllers
         {
             _optionServices = optionServices;
         }
+
+        
         [HttpGet]
         public async Task<ActionResult<List<OptionModel>>> GetAllChoice()
         {
@@ -30,14 +32,14 @@ namespace GeekyQuiz.Controllers
             return Ok(result);
         }
         [HttpPost("{id}")]
-        public async Task<IActionResult> AddOptions(QuestionOption questionOption)
+        public async Task<ActionResult> AddOptions(QuestionOption questionOption)
         { 
             var result =await _optionServices.AddOptions(questionOption);
             return Ok(result);
         }
         [HttpPut]
         [Route("UpdateOption")]
-        public async Task<IActionResult> EditOption(int id, OptionModel updateOption)
+        public async Task<ActionResult> EditOption(int id, OptionModel updateOption)
         {
             if (updateOption == null) return BadRequest(ModelState);
             if (id != updateOption.OptionId) return BadRequest(ModelState);
@@ -45,7 +47,48 @@ namespace GeekyQuiz.Controllers
             var res = _optionServices.UpdateOption(id, updateOption);
             return Ok(res);
         }
+        /*
+        
+        
+        [HttpGet]
+        [Route("GetAllChoice")]
+        public async Task<ActionResult<List<OptionModel>>> GetAllChoice()
+        {
+            return await _optionServices.GetAllOption();
+        }
 
+        
+        [HttpGet("{id}")]
+        [Route("GetSingleQuestionOption")]
+        public async Task<ActionResult<OptionModel>?> GetSingleQuestionOption(int id)
+        {
+            var result = await _optionServices.GetSingleQuestionOption(id);
+            if (result is null)
+            {
+                return null;
+            }
+            return Ok(result);
+        }
+        
+
+        [HttpPost("{id}")]
+        [Route("AddOptions")]
+        public async Task<ActionResult<string>> AddOptions(QuestionOption questionOption)
+        {
+            var result = await _optionServices.AddOptions(questionOption);
+            return Ok(result);
+        }
+        [HttpPut]
+        [Route("UpdateOption")]
+        public async Task<ActionResult<string>> EditOption(int id, OptionModel updateOption)
+        {
+            if (updateOption == null) return BadRequest(ModelState);
+            if (id != updateOption.OptionId) return BadRequest(ModelState);
+
+            var res = _optionServices.UpdateOption(id, updateOption);
+            return Ok(res);
+        }
+        */
 
     }
 }
