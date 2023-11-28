@@ -11,18 +11,27 @@ namespace GeekyQuiz.Services.ChoiceServices
         {
             _context = context;
         }
-        public async Task<List<ChoiceModel>> AddChoice(ChoiceModel user)
+        public async Task<string> AddChoice(QuestionOption questionOption)
         {
-            _context.Choices.Add(user);
+            var option = new ChoiceModel
+            {
+                OptionA = questionOption.OptionA,
+                OptionB = questionOption.OptionB,
+                OptionC = questionOption.OptionC,
+                OptionD = questionOption.OptionD,
+                CorrectOption = questionOption.CorrectOption,
+                QuestionId = new QuestionModel
+                {
+                    Question = questionOption.Question,
+                }
+
+            };
+             await _context.AddAsync(option);
             await _context.SaveChangesAsync();
-            return await _context.Choices.ToListAsync();
+            return "new question added successfully ";
         }
 
-        public Task<List<ChoiceModel>> AddChoice(QuestionOption questionOption)
-        {
-            throw new NotImplementedException();
-        }
-
+      
         public async Task<List<ChoiceModel>?> DeleteChoice(int id)
         {
             var users = await _context.Choices.FindAsync(id);
@@ -41,7 +50,7 @@ namespace GeekyQuiz.Services.ChoiceServices
             return users;
         }
 
-       
+
 
         public async Task<ChoiceModel?> GetSingleChoice(int id)
         {
@@ -72,6 +81,11 @@ namespace GeekyQuiz.Services.ChoiceServices
             existingOption.CorrectOption = option.CorrectOption;
             await _context.SaveChangesAsync();
             return "Updated sucessfully";
+        }
+
+        Task<string> IChoiceServices.AddChoice(QuestionOption questionOption)
+        {
+            throw new NotImplementedException();
         }
 
 

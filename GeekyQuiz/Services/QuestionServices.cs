@@ -23,11 +23,11 @@ namespace GeekyQuiz.Services.QuestionServices
             _context = context;
         }
 
-        public async Task<List<QuestionModel>> AddQuestion(QuestionModel question)
+        public async Task<string> AddQuestion(QuestionModel question)
         {
             _context.Questions.Add(question);
             await _context.SaveChangesAsync();
-            return await _context.Questions.ToListAsync();
+            return "added question sucessfully";
         }
         public async Task<List<QuestionModel>?> DeleteQuestion(int id)
         {
@@ -88,7 +88,12 @@ namespace GeekyQuiz.Services.QuestionServices
             return await _context.Questions.ToListAsync();
         }
 
-           async Task<List<QuestionModel>> IQuestionServices.GetRandomQuestion(int numberOfQuestions)
+        //Task<List<QuestionModel>> IQuestionServices.AddQuestion(QuestionModel question)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        async Task<List<QuestionModel>> IQuestionServices.GetRandomQuestion(int numberOfQuestions)
            {
                var randomQuestions = _context.Questions
                    .OrderBy(q => Guid.NewGuid()) 

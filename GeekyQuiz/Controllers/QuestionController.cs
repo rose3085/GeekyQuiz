@@ -63,12 +63,12 @@ namespace GeekyQuiz.Controllers
         //    return Ok(result);
         //}
 
-        [HttpPost]
-        public async Task<ActionResult<List<LoginModel>>> AddQuestion(QuestionModel question)
-        {
-            var result = await _questionServices.AddQuestion(question);
-            return Ok(result);
-        }
+        //[HttpPost]
+        //public async Task<ActionResult<string> AddQuestion(QuestionModel question)
+        //{
+        //    var result = await _questionServices.AddQuestion(question);
+        //    return ";
+        //}
         [HttpPut("{id}")]
         public async Task<ActionResult<List<LoginModel>>?> UpdateQuestion(int id, QuestionModel request)
         {

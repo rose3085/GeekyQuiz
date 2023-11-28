@@ -2,7 +2,7 @@
 {
     public interface IQuestionServices
     {
-        Task<List<QuestionModel>> AddQuestion(QuestionModel question);
+        Task<string> AddQuestion(QuestionModel question);
         Task<List<QuestionModel>?> DeleteQuestion(int id);
         Task<List<QuestionModel>> GetAllQuestion();
 

@@ -7,10 +7,10 @@ namespace GeekyQuiz.Models
         [Key]
         public int ChoiceId { get; set; }
         public QuestionModel QuestionId { get; set; }
-        public string optionA { get; set; } = string.Empty;
-        public string optionB { get; set; } = string.Empty;
-        public string optionC { get; set; } = string.Empty;
-        public string optionD { get; set; } = string.Empty;
+        public string OptionA { get; set; } = string.Empty;
+        public string OptionB { get; set; } = string.Empty;
+        public string OptionC { get; set; } = string.Empty;
+        public string OptionD { get; set; } = string.Empty;
         public char CorrectOption { get; set; }
 
         
