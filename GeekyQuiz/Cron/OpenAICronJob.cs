@@ -35,7 +35,7 @@ namespace GeekyQuiz.Cron
             {
                 //string apiKey = "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";
                 string apiKey = "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";
-                string ques = " 10 MCQ Quiz computer science question with their 4 options";
+                string ques = "  MCQ Quiz computer science question with their 4 options";
                 var prompt = $"Q: {ques}\nA:";
                 OpenAIAPI openai = new OpenAIAPI(apiKey);
                 CompletionRequest completion = new CompletionRequest();
